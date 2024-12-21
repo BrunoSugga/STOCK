@@ -1,0 +1,20 @@
+# Ignorar dependencias
+node_modules/
+
+# Archivos de caché
+*.log
+.cache/
+*.pack
+*.eslintcache
+
+# Configuración de entornos locales
+.env
+.env.local
+
+# Archivos de bases de datos locales
+STOCKGPT/backend/stockgpt.db
+
+# Archivos de construcción
+dist/
+build/
+.vite/

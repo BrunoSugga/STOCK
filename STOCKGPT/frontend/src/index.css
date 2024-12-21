@@ -1,0 +1,20 @@
+/* Estilo global del cuerpo */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+/* Estilo para la sugerencia activa */
+.list-group-item.active {
+  background-color: #007bff; /* Color de fondo azul */
+  color: white; /* Texto en blanco */
+  cursor: pointer; /* Cambia el cursor a puntero */
+}
+
+/* Estilo para las sugerencias en la lista */
+.list-group-item {
+  padding: 10px; /* Espaciado interno */
+  border: 1px solid #ddd; /* Borde para separar las sugerencias */
+}
