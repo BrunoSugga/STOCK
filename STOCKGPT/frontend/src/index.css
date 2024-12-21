@@ -1,20 +1,98 @@
-/* Estilo global del cuerpo */
+/* Fondo global */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f9f9f9;
+  background-color: #1c1c1c; /* Fondo gris oscuro más uniforme */
+  color: #f5f5f5; /* Texto en gris claro */
 }
 
-/* Estilo para la sugerencia activa */
-.list-group-item.active {
-  background-color: #007bff; /* Color de fondo azul */
-  color: white; /* Texto en blanco */
-  cursor: pointer; /* Cambia el cursor a puntero */
+/* Estilos de títulos */
+h1, h2 {
+  color: #ffffff; /* Títulos en blanco puro */
 }
 
-/* Estilo para las sugerencias en la lista */
+/* Etiquetas y textos */
+.form-label, .text-light {
+  color: #e0e0e0; /* Texto en gris más claro */
+}
+
+/* Contenedor principal */
+.container {
+  padding: 20px;
+  background-color: #1c1c1c; /* Fondo igual al del body */
+}
+
+/* Estilos de la lista de sugerencias */
 .list-group-item {
-  padding: 10px; /* Espaciado interno */
-  border: 1px solid #ddd; /* Borde para separar las sugerencias */
+  background-color: #2a2a2a; /* Fondo gris oscuro para elementos de la lista */
+  color: #f5f5f5; /* Texto gris claro */
+  border: 1px solid #3a3a3a; /* Bordes en gris más oscuro */
+  padding: 10px;
+}
+
+.list-group-item.active {
+  background-color: #505050; /* Fondo gris más claro para selección */
+  color: #ffffff; /* Texto blanco */
+}
+
+/* Botones */
+button {
+  cursor: pointer;
+  border-radius: 4px; /* Bordes redondeados para mejorar la estética */
+}
+
+button.btn-primary {
+  background-color: #4b4b4b; /* Botón gris oscuro */
+  border-color: #6b6b6b;
+  color: #ffffff;
+}
+
+button.btn-secondary {
+  background-color: #6b6b6b; /* Botón gris medio */
+  border-color: #8b8b8b;
+  color: #ffffff;
+}
+
+button:hover {
+  background-color: #555555; /* Efecto hover para todos los botones */
+}
+
+/* Inputs y textareas */
+input, textarea {
+  background-color: #2b2b2b; /* Fondo oscuro */
+  color: #ffffff; /* Texto blanco */
+  border: 1px solid #444444; /* Bordes oscuros */
+  padding: 8px;
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+input:focus, textarea:focus {
+  outline: none; /* Eliminar borde predeterminado */
+  border: 1px solid #777777; /* Resaltar el borde al enfocar */
+}
+
+/* Encabezado de listas */
+h2 {
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+/* Botones dentro de listas */
+.list-group-item button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+button.btn-danger {
+  background-color: #b33a3a; /* Botón rojo para "Sin Stock" */
+  color: #ffffff;
+  border: none;
+}
+
+button.btn-success {
+  background-color: #3a9b3a; /* Botón verde para "Existencia" */
+  color: #ffffff;
+  border: none;
 }
