@@ -1,0 +1,626 @@
+[
+  {
+    "articulo": "BONDIOLA CURADA A/V",
+    "leadTime": 32
+  },
+  {
+    "articulo": "BONDIOLA RELLENA AGRID.",
+    "leadTime": 4
+  },
+  {
+    "articulo": "BONDIOLA RELLENA SALADA",
+    "leadTime": 4
+  },
+  {
+    "articulo": "BROCHETTES DE CERDO",
+    "leadTime": 3
+  },
+  {
+    "articulo": "BUTIFARRA",
+    "leadTime": 2
+  },
+  {
+    "articulo": "BUTIFARRA A/V",
+    "leadTime": 2
+  },
+  {
+    "articulo": "CHACARERO A/V",
+    "leadTime": 10
+  },
+  {
+    "articulo": "CHACARERO FINCETA",
+    "leadTime": 10
+  },
+  {
+    "articulo": "CHACARERO FINCETA A/V",
+    "leadTime": 10
+  },
+  {
+    "articulo": "CHOR PARRILLERO ESPETO",
+    "leadTime": 2
+  },
+  {
+    "articulo": "CHOR. C/CHEDDAR Y PANCETA A/V",
+    "leadTime": 2
+  },
+  {
+    "articulo": "CHOR. CAPRESSE A/V X3",
+    "leadTime": 2
+  },
+  {
+    "articulo": "CHOR. COL. CANTIMPALO",
+    "leadTime": 2
+  },
+  {
+    "articulo": "CHOR. ESPAÑOL",
+    "leadTime": 2
+  },
+  {
+    "articulo": "CHOR. ESPAÑOL A/V",
+    "leadTime": 2
+  },
+  {
+    "articulo": "CHOR. ESPETO",
+    "leadTime": 1
+  },
+  {
+    "articulo": "CHOR. EXTRA",
+    "leadTime": 1
+  },
+  {
+    "articulo": "CHOR. EXTRA A/V",
+    "leadTime": 2
+  },
+  {
+    "articulo": "CHOR. EXTRA A/V X7U",
+    "leadTime": 2
+  },
+  {
+    "articulo": "CHOR. EXTRA RUEDA",
+    "leadTime": 1
+  },
+  {
+    "articulo": "CHOR. PARR. RUEDA",
+    "leadTime": 1
+  },
+  {
+    "articulo": "CHOR. PARRILLERO",
+    "leadTime": 1
+  },
+  {
+    "articulo": "CHOR. PARRILLERO A/V X7",
+    "leadTime": 2
+  },
+  {
+    "articulo": "CHOR. PURO CERDO",
+    "leadTime": 1
+  },
+  {
+    "articulo": "CHOR.C/CHEDDAR Y MORR. A/V",
+    "leadTime": 2
+  },
+  {
+    "articulo": "CHOR.C/CHEDDAR Y MORRON",
+    "leadTime": 1
+  },
+  {
+    "articulo": "CHOR.C/QUESO Y ACEI. A/V",
+    "leadTime": 2
+  },
+  {
+    "articulo": "CHOR.DE CORDERO A/V X3U",
+    "leadTime": 2
+  },
+  {
+    "articulo": "CHORIZO DE CAMPO (RUEDA)",
+    "leadTime": 2
+  },
+  {
+    "articulo": "CHORIZO EXTRA ESPETO A/V",
+    "leadTime": 3
+  },
+  {
+    "articulo": "CHORIZO KOSHER A/V X3U",
+    "leadTime": 5
+  },
+  {
+    "articulo": "CHORIZO RUSO",
+    "leadTime": 2
+  },
+  {
+    "articulo": "CHORIZOS MINI",
+    "leadTime": 1
+  },
+  {
+    "articulo": "DOLF FIAM ET NEG MITAD",
+    "leadTime": 3
+  },
+  {
+    "articulo": "DOLF MORTADELA 4K",
+    "leadTime": 2
+  },
+  {
+    "articulo": "DOLF MORTADELA 4K MITAD",
+    "leadTime": 2
+  },
+  {
+    "articulo": "DOLF. CHACARERO A/V",
+    "leadTime": 10
+  },
+  {
+    "articulo": "DOLF. CHACARERO FINCETA A/V",
+    "leadTime": 10
+  },
+  {
+    "articulo": "DOLF. CHORIZO A/V X7",
+    "leadTime": 2
+  },
+  {
+    "articulo": "DOLF. FRANK. CORTOS 1.2K",
+    "leadTime": 2
+  },
+  {
+    "articulo": "DOLF. FRANK. CORTOS 2X8 UD. PROMO",
+    "leadTime": 3
+  },
+  {
+    "articulo": "DOLF. FRANK. CORTOS X8",
+    "leadTime": 2
+  },
+  {
+    "articulo": "DOLF. LONGANIZA A/V",
+    "leadTime": 10
+  },
+  {
+    "articulo": "DOLF. LONGANIZA FINCETA A/V",
+    "leadTime": 10
+  },
+  {
+    "articulo": "DOLF. SALAMIN A/V",
+    "leadTime": 10
+  },
+  {
+    "articulo": "DOLF. SALAMIN FINCETA A/V",
+    "leadTime": 10
+  },
+  {
+    "articulo": "DOLF.CHORIZO",
+    "leadTime": 1
+  },
+  {
+    "articulo": "DOLF.FIAM.DE C.ET.NEG.CUAD.",
+    "leadTime": 3
+  },
+  {
+    "articulo": "DOLF.FRANK. LARGOS 2K",
+    "leadTime": 2
+  },
+  {
+    "articulo": "DOLF.JAMON COCIDO CUAD.",
+    "leadTime": 3
+  },
+  {
+    "articulo": "DOLF.JAMON COCIDO PERI.",
+    "leadTime": 3
+  },
+  {
+    "articulo": "DOLF.LOMITO AHUMADO",
+    "leadTime": 3
+  },
+  {
+    "articulo": "DOLF.PANCETA AHUMADA",
+    "leadTime": 4
+  },
+  {
+    "articulo": "DOLF.SALAME MEDIO MILAN",
+    "leadTime": 15
+  },
+  {
+    "articulo": "DOLF.SALAME MILAN",
+    "leadTime": 15
+  },
+  {
+    "articulo": "FIAMB.DE C.ET.CEL.CUAD.",
+    "leadTime": 3
+  },
+  {
+    "articulo": "FIAMB.DE C.ET.CEL.PERI.",
+    "leadTime": 3
+  },
+  {
+    "articulo": "FRANK. CORTOS 1.2K",
+    "leadTime": 2
+  },
+  {
+    "articulo": "FRANK. CORTOS 2X8 UD. PROMO",
+    "leadTime": 2
+  },
+  {
+    "articulo": "FRANK. CORTOS X27U",
+    "leadTime": 2
+  },
+  {
+    "articulo": "FRANK. CORTOS X8U",
+    "leadTime": 2
+  },
+  {
+    "articulo": "FRANK. KOSHER CORTOS X8U",
+    "leadTime": 4
+  },
+  {
+    "articulo": "FRANK. LARGOS 2K",
+    "leadTime": 2
+  },
+  {
+    "articulo": "FRANK. LARGOS 2X8 UD. PROMO",
+    "leadTime": 2
+  },
+  {
+    "articulo": "FRANK. LARGOS X27U",
+    "leadTime": 2
+  },
+  {
+    "articulo": "FRANK. LARGOS X8U",
+    "leadTime": 2
+  },
+  {
+    "articulo": "FRANK. LIGHT RED.EN SAL 2X8U PROMO",
+    "leadTime": 2
+  },
+  {
+    "articulo": "FRANK. LIGHT RED.EN SAL X8U",
+    "leadTime": 2
+  },
+  {
+    "articulo": "HIGADO A LA TELA",
+    "leadTime": 5
+  },
+  {
+    "articulo": "INSUMO KASSLER",
+    "leadTime": 4
+  },
+  {
+    "articulo": "JAMON COCIDO AHUMADO",
+    "leadTime": 4
+  },
+  {
+    "articulo": "JAMON COCIDO AHUMADO CUAD. MITAD",
+    "leadTime": 4
+  },
+  {
+    "articulo": "JAMON COCIDO CUADRADO",
+    "leadTime": 3
+  },
+  {
+    "articulo": "JAMON COCIDO EXTRA LIGHT RED.EN SODIO",
+    "leadTime": 4
+  },
+  {
+    "articulo": "JAMON COCIDO EXTRA LIGHT RED.EN SODIO MITAD",
+    "leadTime": 4
+  },
+  {
+    "articulo": "JAMON COCIDO EXTRA T. INGLESA (GRAN RESERVA)",
+    "leadTime": 5
+  },
+  {
+    "articulo": "JAMON COCIDO LIGHT SIN SAL",
+    "leadTime": 3
+  },
+  {
+    "articulo": "JAMON COCIDO PERITA",
+    "leadTime": 3
+  },
+  {
+    "articulo": "JAMON CRUDO SPECK",
+    "leadTime": 90
+  },
+  {
+    "articulo": "JAMON DE CAMPO",
+    "leadTime": 5
+  },
+  {
+    "articulo": "JAMON DE CAMPO MITAD",
+    "leadTime": 5
+  },
+  {
+    "articulo": "JAMON EXTRA",
+    "leadTime": 5
+  },
+  {
+    "articulo": "JAMON GRAN RESERVA",
+    "leadTime": 5
+  },
+  {
+    "articulo": "KASSLER A/V",
+    "leadTime": 4
+  },
+  {
+    "articulo": "KASSLER ENTERO(ESP.AH.)",
+    "leadTime": 4
+  },
+  {
+    "articulo": "KASSLER X2 A/V (PROMO)",
+    "leadTime": 4
+  },
+  {
+    "articulo": "LECHON ARROLLADO",
+    "leadTime": 3
+  },
+  {
+    "articulo": "LENGUA COCIDA A/V",
+    "leadTime": 3
+  },
+  {
+    "articulo": "LEONESA A/V 1/2",
+    "leadTime": 2
+  },
+  {
+    "articulo": "LEONESA CON JAMON A/V 1/2",
+    "leadTime": 2
+  },
+  {
+    "articulo": "LEONESA PRIMAVERA A/V 1/2",
+    "leadTime": 2
+  },
+  {
+    "articulo": "LOMITO AHUMADO",
+    "leadTime": 3
+  },
+  {
+    "articulo": "LOMITO AHUMADO MITAD A/V",
+    "leadTime": 3
+  },
+  {
+    "articulo": "LOMITO CANADIENSE MITAD",
+    "leadTime": 3
+  },
+  {
+    "articulo": "LONGAN. DE CORTE PELADA A/V",
+    "leadTime": 15
+  },
+  {
+    "articulo": "LONGANIZA A/V",
+    "leadTime": 10
+  },
+  {
+    "articulo": "LONGANIZA DE CORTE",
+    "leadTime": 15
+  },
+  {
+    "articulo": "LONGANIZA DE CORTE A/V",
+    "leadTime": 15
+  },
+  {
+    "articulo": "LONGANIZA FINCETA",
+    "leadTime": 10
+  },
+  {
+    "articulo": "LONGANIZA FINCETA A/V",
+    "leadTime": 10
+  },
+  {
+    "articulo": "LONGANIZA PIPA",
+    "leadTime": 7
+  },
+  {
+    "articulo": "MATAMBRE DE CARNE RELL.",
+    "leadTime": 3
+  },
+  {
+    "articulo": "MORC DULCE ESPETO",
+    "leadTime": 2
+  },
+  {
+    "articulo": "MORC SALADA ESPETO",
+    "leadTime": 2
+  },
+  {
+    "articulo": "MORC. DUL. C/N Y M. A/V",
+    "leadTime": 2
+  },
+  {
+    "articulo": "MORC. DULCE",
+    "leadTime": 2
+  },
+  {
+    "articulo": "MORC. DULCE A/V",
+    "leadTime": 2
+  },
+  {
+    "articulo": "MORC. DULCE C/ N Y M ESPETO A/V",
+    "leadTime": 2
+  },
+  {
+    "articulo": "MORC. DULCE C/NUE. Y MA.",
+    "leadTime": 2
+  },
+  {
+    "articulo": "MORC. SAL. C/Q Y A. A/V",
+    "leadTime": 2
+  },
+  {
+    "articulo": "MORC. SALADA",
+    "leadTime": 2
+  },
+  {
+    "articulo": "MORC. SALADA A/V",
+    "leadTime": 2
+  },
+  {
+    "articulo": "MORC. SALADA C/ Q Y A ESPETO A/V",
+    "leadTime": 2
+  },
+  {
+    "articulo": "MORC. SALADA C/QUE. Y AC.",
+    "leadTime": 2
+  },
+  {
+    "articulo": "MORCILLON C/LENGUA",
+    "leadTime": 2
+  },
+  {
+    "articulo": "MORTADELA 3.5KG",
+    "leadTime": 3
+  },
+  {
+    "articulo": "MORTADELA BOCHA",
+    "leadTime": 3
+  },
+  {
+    "articulo": "MORTADELA BOCHA MITAD",
+    "leadTime": 3
+  },
+  {
+    "articulo": "MORTADELIN",
+    "leadTime": 3
+  },
+  {
+    "articulo": "MORTADELIN + QUESITO PROMO",
+    "leadTime": 3
+  },
+  {
+    "articulo": "PAMPLONA AGRIDULCE",
+    "leadTime": 7
+  },
+  {
+    "articulo": "PAMPLONA SALADA",
+    "leadTime": 7
+  },
+  {
+    "articulo": "PANCETA AHUMADA",
+    "leadTime": 5
+  },
+  {
+    "articulo": "PANCETA AHUMADA TROZOS A/V",
+    "leadTime": 5
+  },
+  {
+    "articulo": "PANCETA AHUMADA+CHOR ESPAÑ",
+    "leadTime": 5
+  },
+  {
+    "articulo": "PANCETA AMERICANA",
+    "leadTime": 3
+  },
+  {
+    "articulo": "PANCETA BACON A/V",
+    "leadTime": 4
+  },
+  {
+    "articulo": "PASTRAMI",
+    "leadTime": 3
+  },
+  {
+    "articulo": "PATE DE HIGADO",
+    "leadTime": 2
+  },
+  {
+    "articulo": "PATE DE HIGADO AHUMADO CON TRUFAS",
+    "leadTime": 2
+  },
+  {
+    "articulo": "PATE DE JAMON",
+    "leadTime": 2
+  },
+  {
+    "articulo": "PATE DE LENGUA",
+    "leadTime": 2
+  },
+  {
+    "articulo": "PATE DE LENGUA AHUMADO",
+    "leadTime": 2
+  },
+  {
+    "articulo": "QUESITO DE CERDO",
+    "leadTime": 3
+  },
+  {
+    "articulo": "QUESO DE CERDO",
+    "leadTime": 3
+  },
+  {
+    "articulo": "QUESO DE CERDO A LA TELA",
+    "leadTime": 3
+  },
+  {
+    "articulo": "QUESO DE CERDO MINI",
+    "leadTime": 3
+  },
+  {
+    "articulo": "RINON A LA TELA",
+    "leadTime": 7
+  },
+  {
+    "articulo": "SALAME FINCETA",
+    "leadTime": 10
+  },
+  {
+    "articulo": "SALAME FINCETA A/V",
+    "leadTime": 10
+  },
+  {
+    "articulo": "SALAME MILAN",
+    "leadTime": 15
+  },
+  {
+    "articulo": "SALAME MILAN A/V (MITAD)",
+    "leadTime": 15
+  },
+  {
+    "articulo": "SALAME PICADO GRUESO",
+    "leadTime": 15
+  },
+  {
+    "articulo": "SALAMIN A/V",
+    "leadTime": 10
+  },
+  {
+    "articulo": "SALAMIN C/QUESO A/V",
+    "leadTime": 10
+  },
+  {
+    "articulo": "SALAMIN KOSHER A/V",
+    "leadTime": 10
+  },
+  {
+    "articulo": "SALCH. PARR.C/QUESO A/V",
+    "leadTime": 2
+  },
+  {
+    "articulo": "SALCHICHA PARR. A/V",
+    "leadTime": 2
+  },
+  {
+    "articulo": "SALCHICHA PARRILLERA",
+    "leadTime": 1
+  },
+  {
+    "articulo": "SALCHICHA PARRILLERA KOSHER A/V",
+    "leadTime": 4
+  },
+  {
+    "articulo": "SOPRESSATA",
+    "leadTime": 15
+  },
+  {
+    "articulo": "SOPRESSATA A/V (PORCIONES)",
+    "leadTime": 15
+  },
+  {
+    "articulo": "LONGANIZA FINCETA A/V PRECIO LIDER",
+    "leadTime": 10
+  },
+  {
+    "articulo": "SALAMIN FINCETA A/V PRECIO LIDER",
+    "leadTime": 10
+  },
+  {
+    "articulo": "CHACARERO FINCETA A/V PRECIO LIDER",
+    "leadTime": 10
+  },
+  {
+    "articulo": "PATE 3 UD. PROMO",
+    "leadTime": 3
+  }
+]

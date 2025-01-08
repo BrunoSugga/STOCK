@@ -18,3 +18,5 @@ STOCKGPT/backend/stockgpt.db
 dist/
 build/
 .vite/
+
+.codegpt
