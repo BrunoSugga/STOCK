@@ -1,0 +1,562 @@
+[
+  {
+    "id": 1,
+    "name": "10983-AGUJA KOSHER",
+    "quantity": 9999
+  },
+  {
+    "id": 2,
+    "name": "10981-ASADO KOSHER",
+    "quantity": 999
+  },
+  {
+    "id": 3,
+    "name": "10982-BIFE ANCHO KOSHER",
+    "quantity": 1
+  },
+  {
+    "id": 4,
+    "name": "10988-BRAZUELO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 5,
+    "name": "156-FIS T.M.",
+    "quantity": 0
+  },
+  {
+    "id": 6,
+    "name": "10986-MARUCHA KOSHER",
+    "quantity": 4
+  },
+  {
+    "id": 7,
+    "name": "10990-MATAMBRE KOSHER",
+    "quantity": 90
+  },
+  {
+    "id": 8,
+    "name": "10984-PALETA KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 9,
+    "name": "10985-PECHO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 10,
+    "name": "10045-LECHON",
+    "quantity": 0
+  },
+  {
+    "id": 11,
+    "name": "10189-BONDIOLA RELLENA AGRID.",
+    "quantity": 1
+  },
+  {
+    "id": 12,
+    "name": "10188-BONDIOLA RELLENA SALADA",
+    "quantity": 90
+  },
+  {
+    "id": 13,
+    "name": "10558-BROCHETTES DE CERDO",
+    "quantity": 0
+  },
+  {
+    "id": 14,
+    "name": "10232-PAMPLONA SALADA",
+    "quantity": 0
+  },
+  {
+    "id": 15,
+    "name": "10791-HAMB. EXTRA 1EST X 20+4U",
+    "quantity": 0
+  },
+  {
+    "id": 16,
+    "name": "10575-HAMB.KOSHER 1ESTX12U",
+    "quantity": 0
+  },
+  {
+    "id": 17,
+    "name": "10061-ASADO A/V CAMPOSUR",
+    "quantity": 10
+  },
+  {
+    "id": 18,
+    "name": "10467-ASADO DE CEN. A/V CAMPOSUR",
+    "quantity": 10
+  },
+  {
+    "id": 19,
+    "name": "10466-BABY RIBS A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 20,
+    "name": "10513-BIFE DE VACIO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 21,
+    "name": "10072-COL. DE CUAD. A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 22,
+    "name": "10003-CHOR. PARRILLERO",
+    "quantity": 0
+  },
+  {
+    "id": 23,
+    "name": "10007-JAMON AL ROJO",
+    "quantity": 9
+  },
+  {
+    "id": 24,
+    "name": "10065-MATAMBRITO A/V CAMPOSUR",
+    "quantity": 9999
+  },
+  {
+    "id": 25,
+    "name": "10237-MORC. DUL. C/N Y M. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 26,
+    "name": "10176-MORC. DULCE",
+    "quantity": 0
+  },
+  {
+    "id": 27,
+    "name": "10177-MORC. SALADA",
+    "quantity": 0
+  },
+  {
+    "id": 28,
+    "name": "10071-NALGA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 29,
+    "name": "10073-PECETO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 30,
+    "name": "10062-PECHITO PARR. A/V CAMPOSUR",
+    "quantity": 60
+  },
+  {
+    "id": 31,
+    "name": "10953-RACK DE CERDO A/V",
+    "quantity": 0
+  },
+  {
+    "id": 32,
+    "name": "10066-SECRETO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 33,
+    "name": "10070-BOLA DE LOMO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 34,
+    "name": "10063-BONDIOLA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 35,
+    "name": "10284-CHOR.C/CHEDDAR Y MORR. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 36,
+    "name": "10283-CHOR.C/QUESO Y ACEI. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 37,
+    "name": "10563-CHORIZO KOSHER A/V X3U",
+    "quantity": 10
+  },
+  {
+    "id": 38,
+    "name": "10069-PICANA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 39,
+    "name": "10191-RINON A LA TELA",
+    "quantity": 0
+  },
+  {
+    "id": 40,
+    "name": "10118-CHOR. EXTRA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 41,
+    "name": "10996-TRASERO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 42,
+    "name": "10842-DOLF. FRANK. CORTOS X8",
+    "quantity": 0
+  },
+  {
+    "id": 43,
+    "name": "10567-FRANK. KOSHER CORTOS X8U",
+    "quantity": 0
+  },
+  {
+    "id": 44,
+    "name": "10470-JAMON DE CAMPO",
+    "quantity": 9
+  },
+  {
+    "id": 45,
+    "name": "10432-KASSLER A/V",
+    "quantity": 90
+  },
+  {
+    "id": 46,
+    "name": "10940-LONGANIZA A/V PRECIO LIDER",
+    "quantity": 0
+  },
+  {
+    "id": 47,
+    "name": "10941-SALAMIN A/V PRECIO LIDER",
+    "quantity": 0
+  },
+  {
+    "id": 48,
+    "name": "10005-CHOR. COL. CANTIMPALO",
+    "quantity": 10
+  },
+  {
+    "id": 49,
+    "name": "10286-SALCH. PARR.C/QUESO A/V",
+    "quantity": 0
+  },
+  {
+    "id": 50,
+    "name": "10542-HAMB.PARRILLERA 1ESTX12U",
+    "quantity": 0
+  },
+  {
+    "id": 51,
+    "name": "10248-BUTIFARRA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 52,
+    "name": "10640-FRANK. CORTOS 2X8 UD. PROMO",
+    "quantity": 0
+  },
+  {
+    "id": 53,
+    "name": "10708-FRANK. LIGHT RED.EN SAL 2X8U PROMO",
+    "quantity": 0
+  },
+  {
+    "id": 54,
+    "name": "10238-MORC. SAL. C/Q Y A. A/V",
+    "quantity": 90
+  },
+  {
+    "id": 55,
+    "name": "10882-SALAMIN KOSHER A/V",
+    "quantity": 0
+  },
+  {
+    "id": 56,
+    "name": "10425-JAMON COCIDO PERITA",
+    "quantity": 0
+  },
+  {
+    "id": 57,
+    "name": "10721-CHACARERO A/V",
+    "quantity": 0
+  },
+  {
+    "id": 58,
+    "name": "10582-PASTRAMI",
+    "quantity": 0
+  },
+  {
+    "id": 59,
+    "name": "10860-PATE DE JAMON",
+    "quantity": 90
+  },
+  {
+    "id": 60,
+    "name": "10937-HAMB. EXTRA GRANDE 1ESTX6U",
+    "quantity": 0
+  },
+  {
+    "id": 61,
+    "name": "10574-HAMB.LIGHT S/SAL 1ESTX12U",
+    "quantity": 0
+  },
+  {
+    "id": 62,
+    "name": "10717-CHACARERO FINCETA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 63,
+    "name": "10886-PATE DE HIGADO AHUMADO CON TRUFAS",
+    "quantity": 0
+  },
+  {
+    "id": 64,
+    "name": "10720-SALAMIN A/V",
+    "quantity": 0
+  },
+  {
+    "id": 65,
+    "name": "10853-SALCHICHA PARRILLERA KOSHER A/V",
+    "quantity": 0
+  },
+  {
+    "id": 66,
+    "name": "10858-PATE DE HIGADO",
+    "quantity": 0
+  },
+  {
+    "id": 67,
+    "name": "10859-PATE DE LENGUA",
+    "quantity": 0
+  },
+  {
+    "id": 68,
+    "name": "102001-DESC. CONCEDIDOS T. BÁS.",
+    "quantity": 0
+  },
+  {
+    "id": 69,
+    "name": "10205-DESCUENTOS CONCEDIDOS",
+    "quantity": 0
+  },
+  {
+    "id": 70,
+    "name": "10636-SOPRESSATA A/V (PORCIONES)",
+    "quantity": 0
+  },
+  {
+    "id": 71,
+    "name": "10018-ESPINAZO",
+    "quantity": 0
+  },
+  {
+    "id": 72,
+    "name": "10885-PATE DE LENGUA AHUMADO",
+    "quantity": 0
+  },
+  {
+    "id": 73,
+    "name": "10022-ASADO",
+    "quantity": 8888
+  },
+  {
+    "id": 74,
+    "name": "10755-LECHON ARROLLADO",
+    "quantity": 0
+  },
+  {
+    "id": 75,
+    "name": "10415-MATAMBRE DE CARNE RELL.",
+    "quantity": 0
+  },
+  {
+    "id": 76,
+    "name": "10183-CHOR.C/CHEDDAR Y MORRON",
+    "quantity": 0
+  },
+  {
+    "id": 77,
+    "name": "10719-SALAME FINCETA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 78,
+    "name": "10516-PANCETA AMERICANA",
+    "quantity": 0
+  },
+  {
+    "id": 79,
+    "name": "10101-COCHINILLO",
+    "quantity": 0
+  },
+  {
+    "id": 80,
+    "name": "10710-MORTADELIN + QUESITO PROMO",
+    "quantity": 0
+  },
+  {
+    "id": 81,
+    "name": "10231-PAMPLONA AGRIDULCE",
+    "quantity": 0
+  },
+  {
+    "id": 82,
+    "name": "10939-CHACARERO A/V PRECIO LIDER",
+    "quantity": 0
+  },
+  {
+    "id": 83,
+    "name": "10722-LONGANIZA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 84,
+    "name": "10048-1/2 S/CAB S/C",
+    "quantity": 0
+  },
+  {
+    "id": 85,
+    "name": "10795-BONDIOLA A/V + CHORIZO X3 DE REGALO",
+    "quantity": 0
+  },
+  {
+    "id": 86,
+    "name": "10837-JAMON GRAN RESERVA",
+    "quantity": 0
+  },
+  {
+    "id": 87,
+    "name": "10637-PANCETA AHUMADA TROZOS A/V",
+    "quantity": 0
+  },
+  {
+    "id": 88,
+    "name": "10328-LEONESA A/V 1/2",
+    "quantity": 0
+  },
+  {
+    "id": 89,
+    "name": "10718-LONGANIZA FINCETA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 90,
+    "name": "10170-CHOR.DE CORDERO A/V X3U",
+    "quantity": 0
+  },
+  {
+    "id": 91,
+    "name": "10014-PALETA CON HUESO",
+    "quantity": 0
+  },
+  {
+    "id": 92,
+    "name": "10074-MILANESAS A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 93,
+    "name": "10564-LONGANIZA FINCETA",
+    "quantity": 0
+  },
+  {
+    "id": 94,
+    "name": "10075-MEDALLONES A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 95,
+    "name": "10077-CHULETA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 96,
+    "name": "10076-PULPA P/MILAN. A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 97,
+    "name": "10343-QUESO DE CERDO MINI",
+    "quantity": 0
+  },
+  {
+    "id": 98,
+    "name": "10190-HIGADO A LA TELA",
+    "quantity": 0
+  },
+  {
+    "id": 99,
+    "name": "10068-COSTILLITA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 100,
+    "name": "10064-LOMITO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 101,
+    "name": "10954-RACK DE CERDO ENTERO",
+    "quantity": 0
+  },
+  {
+    "id": 102,
+    "name": "10641-JAMON CRUDO SPECK",
+    "quantity": 0
+  },
+  {
+    "id": 103,
+    "name": "10881-LENGUA COCIDA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 104,
+    "name": "10781-CHOR PARRILLERO ESPETO",
+    "quantity": 2
+  },
+  {
+    "id": 105,
+    "name": "10782-MORC DULCE ESPETO",
+    "quantity": 0
+  },
+  {
+    "id": 106,
+    "name": "10783-MORC SALADA ESPETO",
+    "quantity": 0
+  },
+  {
+    "id": 107,
+    "name": "10033-PATAS Y BRAZUELOS",
+    "quantity": 0
+  },
+  {
+    "id": 108,
+    "name": "10995-1/2 RES",
+    "quantity": 0
+  },
+  {
+    "id": 109,
+    "name": "10595-FRANK. LIGHT RED.EN SAL X8U",
+    "quantity": 0
+  },
+  {
+    "id": 110,
+    "name": "10459-DOLF.HAMB.CLAS.X3U (FP)",
+    "quantity": 0
+  },
+  {
+    "id": 111,
+    "name": "10047-1/2 S/CAB C/C",
+    "quantity": 0
+  },
+  {
+    "id": 112,
+    "name": "10987-CHINGOLO KOSHER",
+    "quantity": 0
+  }
+]
