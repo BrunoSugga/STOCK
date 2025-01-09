@@ -89,18 +89,35 @@ router.post("/modify-stock", (req, res) => {
                 : article
         );
 
+        res.status(200).json({ message: "Artículo modificado exitosamente", updatedArticle });
+    } catch (error) {
+        console.error("Error al modificar el stock:", error);
+        res.status(500).json({ message: "Error al modificar el stock" });
+    }
+});
+
+// Nueva ruta para confirmar y guardar el stock
+router.post("/confirm-stock", (req, res) => {
+    try {
+        const stockData = req.body; // Datos enviados desde el frontend
+
         const now = new Date();
         const timestamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}-${String(now.getHours()).padStart(2, "0")}-${String(now.getMinutes()).padStart(2, "0")}-${String(now.getSeconds()).padStart(2, "0")}`;
-        const fileName = `stock_modified_${timestamp}.json`;
+        const fileName = `stock_confirmed_${timestamp}.json`;
         const filePath = path.join(__dirname, "../data", fileName);
 
-        // Guardar el nuevo archivo JSON con los cambios
-        fs.writeFileSync(filePath, JSON.stringify(currentStock, null, 2));
+        // Crear el directorio si no existe
+        if (!fs.existsSync(path.join(__dirname, "../data"))) {
+            fs.mkdirSync(path.join(__dirname, "../data"));
+        }
 
-        res.status(200).json({ message: "Stock modificado con éxito", fileName });
+        // Guardar el archivo JSON
+        fs.writeFileSync(filePath, JSON.stringify(stockData, null, 2));
+
+        res.status(200).json({ message: "Stock confirmado y guardado exitosamente", fileName });
     } catch (error) {
-        console.error("Error al procesar /modify-stock:", error);
-        res.status(500).json({ message: "Error al modificar el stock" });
+        console.error("Error al procesar /confirm-stock:", error);
+        res.status(500).json({ message: "Error al confirmar el stock" });
     }
 });
 

@@ -9,8 +9,7 @@ function App() {
     const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
     const [selectedArticle, setSelectedArticle] = useState(null);
     const [articles, setArticles] = useState([]);
-    const [isModifying, setIsModifying] = useState(false); // Estado para modificar stock
-    const [allStockEntered, setAllStockEntered] = useState(false); // Verificar si todos los artículos tienen ingreso
+    const [allStockEntered, setAllStockEntered] = useState(false);
     const searchInputRef = useRef(null);
     const quantityInputRef = useRef(null);
 
@@ -20,7 +19,7 @@ function App() {
     }, []);
 
     useEffect(() => {
-        const allEntered = articles.every(article => article.quantity > 0);
+        const allEntered = articles.every(article => article.quantity !== undefined);
         setAllStockEntered(allEntered);
     }, [articles]);
 
@@ -83,23 +82,20 @@ function App() {
     const handleQuantitySave = async () => {
         if (selectedArticle && quantityInputRef.current?.value) {
             try {
-                if (isModifying) {
-                    // Modificar stock existente
-                    await axios.post("http://localhost:3000/api/modify-stock", {
-                        id: selectedArticle.id,
-                        quantity: parseInt(quantityInputRef.current.value),
-                    });
-                } else {
-                    // Ingreso inicial
-                    await axios.post("http://localhost:3000/api/articles/update", {
-                        id: selectedArticle.id,
-                        quantity: parseInt(quantityInputRef.current.value),
-                    });
-                }
+                const updatedQuantity = parseInt(quantityInputRef.current.value);
+
+                await axios.post("http://localhost:3000/api/articles/update", {
+                    id: selectedArticle.id,
+                    quantity: updatedQuantity,
+                });
+
+                const updatedArticles = articles.map(article =>
+                    article.id === selectedArticle.id ? { ...article, quantity: updatedQuantity } : article
+                );
+                setArticles(updatedArticles);
                 setSearchTerm("");
                 setSelectedArticle(null);
                 setSuggestions([]);
-                fetchArticles();
                 focusSearchInput();
             } catch (error) {
                 console.error("Error saving quantity:", error);
@@ -107,43 +103,23 @@ function App() {
         }
     };
 
-    const handleFinalizeInput = async () => {
+    const handleFinalizeInput = () => {
+        if (!allStockEntered) {
+            alert("Asegúrate de que todos los artículos tengan cantidades ingresadas.");
+            return;
+        }
+
+        alert("Todos los artículos tienen cantidades ingresadas. Puedes confirmar el stock.");
+    };
+
+    const handleConfirmStock = async () => {
         try {
-            const response = await axios.post("http://localhost:3000/api/finalize-stock", articles);
+            const response = await axios.post("http://localhost:3000/api/confirm-stock", articles);
             console.log(response.data.message);
-
-            // Limpiar estados después de finalizar
-            setSearchTerm("");
-            setSuggestions([]);
-            setSelectedArticle(null);
-            focusSearchInput();
-            setIsModifying(false); // Desactivar modo de modificación
+            alert("Stock confirmado y guardado correctamente.");
         } catch (error) {
-            console.error("Error al finalizar ingreso:", error);
+            console.error("Error al confirmar stock:", error);
         }
-    };
-
-    const handleDownloadLatestStock = async () => {
-        try {
-            const response = await axios.get("http://localhost:3000/api/latest-stock", {
-                responseType: "blob", // Asegura la recepción de datos binarios
-            });
-
-            // Crear un enlace para descargar el archivo
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const link = document.createElement("a");
-            link.href = url;
-            link.setAttribute("download", "ultimo_stock.csv");
-            document.body.appendChild(link);
-            link.click();
-        } catch (error) {
-            console.error("Error al descargar el último stock:", error);
-            alert("No se pudo descargar el último stock. Intenta nuevamente.");
-        }
-    };
-
-    const toggleModifyMode = () => {
-        setIsModifying(!isModifying);
     };
 
     const finalizeButtonClass = allStockEntered ? "btn btn-primary blinking" : "btn btn-secondary";
@@ -169,22 +145,16 @@ function App() {
                     />
                 </div>
                 <button
-                    className={finalizeButtonClass + " ms-3 mt-4"}
+                    className={`${finalizeButtonClass} ms-3 mt-4`}
                     onClick={handleFinalizeInput}
                 >
                     Finalizar Ingreso
                 </button>
                 <button
-                    className="btn btn-primary ms-3 mt-4"
-                    onClick={handleDownloadLatestStock}
+                    className="btn btn-success ms-3 mt-4"
+                    onClick={handleConfirmStock}
                 >
-                    Último Stock
-                </button>
-                <button
-                    className={`btn ${isModifying ? "btn-danger" : "btn-warning"} ms-3 mt-4`}
-                    onClick={toggleModifyMode}
-                >
-                    {isModifying ? "Salir de Modificar" : "Modificar Stock"}
+                    Confirmar Stock
                 </button>
             </div>
             {suggestions.length > 0 && (
@@ -210,13 +180,13 @@ function App() {
                     <input
                         type="number"
                         id="quantity"
-                        className={`form-control ${isModifying ? "border-danger" : ""}`}
+                        className="form-control"
                         ref={quantityInputRef}
                         placeholder="Ingresa la cantidad"
                         onKeyDown={(e) => e.key === "Enter" && handleQuantitySave()}
                     />
                     <button className="btn btn-primary mt-2" onClick={handleQuantitySave}>
-                        {isModifying ? "Modificar" : "Ingresar"}
+                        Ingresar
                     </button>
                 </div>
             )}
