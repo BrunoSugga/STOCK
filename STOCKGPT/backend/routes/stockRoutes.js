@@ -53,11 +53,15 @@ router.get("/latest-stock", (req, res) => {
     }
 });
 
-// Ruta para guardar el stock actual como un archivo JSON (Finalizar Ingreso)
+// Ruta para guardar el stock actual como un archivo JSON (Nuevo Ingreso)
 router.post("/finalize-stock", (req, res) => {
     try {
         const stockData = req.body; // Datos enviados desde el frontend
-        currentStock = [...stockData]; // Actualizar la variable temporal
+
+        // Validar que los datos no estén vacíos
+        if (!Array.isArray(stockData) || stockData.length === 0) {
+            return res.status(400).json({ message: "El stock enviado está vacío o es inválido." });
+        }
 
         const now = new Date();
         const timestamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}-${String(now.getHours()).padStart(2, "0")}-${String(now.getMinutes()).padStart(2, "0")}-${String(now.getSeconds()).padStart(2, "0")}`;
@@ -72,6 +76,9 @@ router.post("/finalize-stock", (req, res) => {
         // Guardar el archivo JSON
         fs.writeFileSync(filePath, JSON.stringify(stockData, null, 2));
 
+        // Reiniciar currentStock para evitar acumulaciones
+        currentStock = [];
+
         res.status(200).json({ message: "Archivo generado con éxito", fileName });
     } catch (error) {
         console.error("Error al procesar /finalize-stock:", error);
@@ -83,13 +90,41 @@ router.post("/finalize-stock", (req, res) => {
 router.post("/modify-stock", (req, res) => {
     try {
         const updatedArticle = req.body; // Artículo modificado enviado desde el frontend
-        currentStock = currentStock.map(article =>
+
+        // Recuperar el último archivo JSON
+        const directoryPath = path.join(__dirname, "../data");
+        const files = fs.readdirSync(directoryPath).filter(file => file.endsWith(".json"));
+
+        if (files.length === 0) {
+            return res.status(404).json({ message: "No hay archivos de stock disponibles para modificar." });
+        }
+
+        const latestFile = files
+            .map(file => ({
+                file,
+                time: fs.statSync(path.join(directoryPath, file)).mtime.getTime()
+            }))
+            .sort((a, b) => b.time - a.time)[0].file;
+
+        const filePath = path.join(directoryPath, latestFile);
+        const jsonData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+
+        // Modificar el artículo en los datos existentes
+        const updatedStock = jsonData.map(article =>
             article.id === updatedArticle.id
                 ? { ...article, quantity: updatedArticle.quantity }
                 : article
         );
 
-        res.status(200).json({ message: "Artículo modificado exitosamente", updatedArticle });
+        // Crear un nuevo archivo JSON con los datos modificados
+        const now = new Date();
+        const timestamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}-${String(now.getHours()).padStart(2, "0")}-${String(now.getMinutes()).padStart(2, "0")}-${String(now.getSeconds()).padStart(2, "0")}`;
+        const newFileName = `stock_modified_${timestamp}.json`;
+        const newFilePath = path.join(directoryPath, newFileName);
+
+        fs.writeFileSync(newFilePath, JSON.stringify(updatedStock, null, 2));
+
+        res.status(200).json({ message: "Artículo modificado exitosamente", fileName: newFileName });
     } catch (error) {
         console.error("Error al modificar el stock:", error);
         res.status(500).json({ message: "Error al modificar el stock" });

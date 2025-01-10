@@ -9,7 +9,8 @@ function App() {
     const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
     const [selectedArticle, setSelectedArticle] = useState(null);
     const [articles, setArticles] = useState([]);
-    const [allStockEntered, setAllStockEntered] = useState(false);
+    const [missingArticles, setMissingArticles] = useState([]);
+    const [confirmingStock, setConfirmingStock] = useState(false);
     const searchInputRef = useRef(null);
     const quantityInputRef = useRef(null);
 
@@ -18,15 +19,14 @@ function App() {
         focusSearchInput();
     }, []);
 
-    useEffect(() => {
-        const allEntered = articles.every(article => article.quantity !== undefined);
-        setAllStockEntered(allEntered);
-    }, [articles]);
-
     const fetchArticles = async () => {
         try {
             const response = await axios.get("http://localhost:3000/api/articles");
-            setArticles(response.data);
+            const articlesWithDefaults = response.data.map(article => ({
+                ...article,
+                quantity: article.quantity || 0,
+            }));
+            setArticles(articlesWithDefaults);
         } catch (error) {
             console.error("Error fetching articles:", error);
         }
@@ -71,6 +71,7 @@ function App() {
     const handleSelectSuggestion = (article) => {
         if (!article || !article.name) {
             console.error("Artículo inválido:", article);
+            alert("El artículo seleccionado no es válido. Por favor, inténtalo nuevamente.");
             return;
         }
         setSelectedArticle(article);
@@ -82,20 +83,14 @@ function App() {
     const handleQuantitySave = async () => {
         if (selectedArticle && quantityInputRef.current?.value) {
             try {
-                const updatedQuantity = parseInt(quantityInputRef.current.value);
-
                 await axios.post("http://localhost:3000/api/articles/update", {
                     id: selectedArticle.id,
-                    quantity: updatedQuantity,
+                    quantity: parseInt(quantityInputRef.current.value),
                 });
-
-                const updatedArticles = articles.map(article =>
-                    article.id === selectedArticle.id ? { ...article, quantity: updatedQuantity } : article
-                );
-                setArticles(updatedArticles);
                 setSearchTerm("");
                 setSelectedArticle(null);
                 setSuggestions([]);
+                fetchArticles();
                 focusSearchInput();
             } catch (error) {
                 console.error("Error saving quantity:", error);
@@ -103,26 +98,57 @@ function App() {
         }
     };
 
-    const handleFinalizeInput = () => {
-        if (!allStockEntered) {
-            alert("Asegúrate de que todos los artículos tengan cantidades ingresadas.");
+    const handleFinalizeInput = async () => {
+        const missing = articles.filter(
+            (article) => article.quantity === null || article.quantity === undefined || article.quantity === 0
+        );
+
+        if (missing.length > 0) {
+            alert("Aún hay artículos sin ingreso. Por favor, completa el ingreso.");
+            setMissingArticles(missing); // Actualizar la lista de artículos faltantes
             return;
         }
 
-        alert("Todos los artículos tienen cantidades ingresadas. Puedes confirmar el stock.");
-    };
-
-    const handleConfirmStock = async () => {
         try {
-            const response = await axios.post("http://localhost:3000/api/confirm-stock", articles);
+            const response = await axios.post("http://localhost:3000/api/finalize-stock", articles);
             console.log(response.data.message);
-            alert("Stock confirmado y guardado correctamente.");
+
+            setArticles([]);
+            setMissingArticles([]);
+            setSelectedArticle(null);
+            setSearchTerm("");
+            setSuggestions([]);
+            focusSearchInput();
         } catch (error) {
-            console.error("Error al confirmar stock:", error);
+            console.error("Error al finalizar ingreso:", error);
         }
     };
 
-    const finalizeButtonClass = allStockEntered ? "btn btn-primary blinking" : "btn btn-secondary";
+    const handleMarkAsNoStock = (id) => {
+        setMissingArticles((prevMissing) =>
+            prevMissing.map((article) =>
+                article.id === id ? { ...article, quantity: 0 } : article
+            )
+        );
+    };
+
+    const handleUpdateMissingQuantity = (id, quantity) => {
+        setMissingArticles((prevMissing) =>
+            prevMissing.map((article) =>
+                article.id === id ? { ...article, quantity: parseInt(quantity) } : article
+            )
+        );
+    };
+
+    const handleSaveMissingArticles = () => {
+        setArticles((prevArticles) =>
+            prevArticles.map((article) => {
+                const updatedArticle = missingArticles.find((a) => a.id === article.id);
+                return updatedArticle ? updatedArticle : article;
+            })
+        );
+        setMissingArticles([]);
+    };
 
     return (
         <div className="container mt-4">
@@ -145,49 +171,48 @@ function App() {
                     />
                 </div>
                 <button
-                    className={`${finalizeButtonClass} ms-3 mt-4`}
+                    className={`btn btn-secondary ms-3 mt-4 ${
+                        confirmingStock ? "btn-danger" : ""
+                    }`}
                     onClick={handleFinalizeInput}
                 >
                     Finalizar Ingreso
                 </button>
                 <button
-                    className="btn btn-success ms-3 mt-4"
-                    onClick={handleConfirmStock}
+                    className="btn btn-primary ms-3 mt-4"
+                    onClick={handleSaveMissingArticles}
                 >
                     Confirmar Stock
                 </button>
             </div>
-            {suggestions.length > 0 && (
-                <ul className="list-group mt-2">
-                    {suggestions.map((article, index) => (
-                        <li
-                            key={article.id}
-                            className={`list-group-item ${
-                                index === selectedSuggestionIndex ? "active" : ""
-                            }`}
-                            onClick={() => handleSelectSuggestion(article)}
-                        >
-                            {article.name}
-                        </li>
-                    ))}
-                </ul>
-            )}
-            {selectedArticle && (
-                <div className="mb-3">
-                    <label htmlFor="quantity" className="form-label text-light">
-                        Existencias
-                    </label>
-                    <input
-                        type="number"
-                        id="quantity"
-                        className="form-control"
-                        ref={quantityInputRef}
-                        placeholder="Ingresa la cantidad"
-                        onKeyDown={(e) => e.key === "Enter" && handleQuantitySave()}
-                    />
-                    <button className="btn btn-primary mt-2" onClick={handleQuantitySave}>
-                        Ingresar
-                    </button>
+            {missingArticles.length > 0 && (
+                <div className="mt-4">
+                    <h3 className="text-light">Artículos Faltantes</h3>
+                    <ul className="list-group">
+                        {missingArticles.map((article) => (
+                            <li key={article.id} className="list-group-item">
+                                <div className="d-flex justify-content-between align-items-center">
+                                    <span>{article.name}</span>
+                                    <div>
+                                        <input
+                                            type="number"
+                                            placeholder="Cantidad"
+                                            onChange={(e) =>
+                                                handleUpdateMissingQuantity(article.id, e.target.value)
+                                            }
+                                            className="form-control d-inline w-50"
+                                        />
+                                        <button
+                                            className="btn btn-danger ms-2"
+                                            onClick={() => handleMarkAsNoStock(article.id)}
+                                        >
+                                            Sin Stock
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             )}
         </div>
