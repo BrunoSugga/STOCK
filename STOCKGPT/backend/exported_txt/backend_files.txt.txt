@@ -1,0 +1,3490 @@
+// Ubicación original: C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\backend_files.txt
+
+### C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\debugMiddleware
+
+const debug = require("debug")("app:debug");
+
+// Middleware para registrar solicitudes
+const requestLogger = (req, res, next) => {
+    debug(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    debug("Headers:", req.headers);
+    debug("Body:", req.body);
+    next();
+};
+
+// Middleware global para manejar errores
+const errorHandler = (err, req, res, next) => {
+    console.error("Error detectado:", err.stack);
+    res.status(500).send("Se produjo un error inesperado.");
+};
+
+module.exports = {
+    requestLogger,
+    errorHandler,
+};
+
+
+### C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\package.json
+
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "csv-parser": "^3.1.0",
+    "express": "^4.21.2",
+    "json2csv": "^6.0.0-alpha.2",
+    "sqlite3": "^5.1.7"
+  }
+}
+
+
+
+### C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\server.js
+
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const stockRoutes = require("./routes/stockRoutes");
+
+const app = express();
+const PORT = 3000;
+
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+
+// Rutas
+app.use("/api", stockRoutes);
+
+// Iniciar el servidor
+app.listen(PORT, () => {
+    console.log(`Servidor iniciado en http://localhost:${PORT}`);
+});
+
+
+
+### C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\stockgpt.db
+
+SQLite format 3   @                                                                     .r�    V                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    P++Ytablesqlite_sequencesqlite_sequenceCREATE TABLE sqlite_sequence(name,seq)�'�!tablearticlesarticlesCREATE TABLE articles (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        quantity INTEGER DEFAULT 0
+    )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+
+
+### C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\data\articles.csv
+
+"id","name","quantity"
+22,"10003-CHOR. PARRILLERO",0
+48,"10005-CHOR. COL. CANTIMPALO",10
+23,"10007-JAMON AL ROJO",0
+91,"10014-PALETA CON HUESO",0
+71,"10018-ESPINAZO",0
+73,"10022-ASADO",98765
+107,"10033-PATAS Y BRAZUELOS",0
+10,"10045-LECHON",0
+111,"10047-1/2 S/CAB C/C",0
+84,"10048-1/2 S/CAB S/C",0
+17,"10061-ASADO A/V CAMPOSUR",90
+30,"10062-PECHITO PARR. A/V CAMPOSUR",60
+34,"10063-BONDIOLA A/V CAMPOSUR",0
+100,"10064-LOMITO A/V CAMPOSUR",0
+24,"10065-MATAMBRITO A/V CAMPOSUR",90
+32,"10066-SECRETO A/V CAMPOSUR",0
+99,"10068-COSTILLITA A/V CAMPOSUR",0
+38,"10069-PICANA A/V CAMPOSUR",0
+33,"10070-BOLA DE LOMO A/V CAMPOSUR",0
+28,"10071-NALGA A/V CAMPOSUR",0
+21,"10072-COL. DE CUAD. A/V CAMPOSUR",0
+29,"10073-PECETO A/V CAMPOSUR",0
+92,"10074-MILANESAS A/V CAMPOSUR",0
+94,"10075-MEDALLONES A/V CAMPOSUR",0
+96,"10076-PULPA P/MILAN. A/V CAMPOSUR",0
+95,"10077-CHULETA A/V CAMPOSUR",0
+79,"10101-COCHINILLO",0
+40,"10118-CHOR. EXTRA A/V",0
+90,"10170-CHOR.DE CORDERO A/V X3U",0
+26,"10176-MORC. DULCE",0
+27,"10177-MORC. SALADA",0
+76,"10183-CHOR.C/CHEDDAR Y MORRON",0
+12,"10188-BONDIOLA RELLENA SALADA",90
+11,"10189-BONDIOLA RELLENA AGRID.",0
+98,"10190-HIGADO A LA TELA",0
+39,"10191-RINON A LA TELA",0
+68,"102001-DESC. CONCEDIDOS T. BÁS.",0
+69,"10205-DESCUENTOS CONCEDIDOS",0
+81,"10231-PAMPLONA AGRIDULCE",0
+14,"10232-PAMPLONA SALADA",0
+25,"10237-MORC. DUL. C/N Y M. A/V",0
+54,"10238-MORC. SAL. C/Q Y A. A/V",90
+51,"10248-BUTIFARRA A/V",0
+36,"10283-CHOR.C/QUESO Y ACEI. A/V",0
+35,"10284-CHOR.C/CHEDDAR Y MORR. A/V",0
+49,"10286-SALCH. PARR.C/QUESO A/V",0
+88,"10328-LEONESA A/V 1/2",0
+97,"10343-QUESO DE CERDO MINI",0
+75,"10415-MATAMBRE DE CARNE RELL.",0
+56,"10425-JAMON COCIDO PERITA",0
+45,"10432-KASSLER A/V",90
+110,"10459-DOLF.HAMB.CLAS.X3U (FP)",0
+19,"10466-BABY RIBS A/V CAMPOSUR",0
+18,"10467-ASADO DE CEN. A/V CAMPOSUR",10
+44,"10470-JAMON DE CAMPO",9
+20,"10513-BIFE DE VACIO A/V CAMPOSUR",0
+78,"10516-PANCETA AMERICANA",0
+50,"10542-HAMB.PARRILLERA 1ESTX12U",0
+13,"10558-BROCHETTES DE CERDO",0
+37,"10563-CHORIZO KOSHER A/V X3U",10
+93,"10564-LONGANIZA FINCETA",0
+43,"10567-FRANK. KOSHER CORTOS X8U",0
+61,"10574-HAMB.LIGHT S/SAL 1ESTX12U",0
+16,"10575-HAMB.KOSHER 1ESTX12U",0
+58,"10582-PASTRAMI",0
+109,"10595-FRANK. LIGHT RED.EN SAL X8U",0
+70,"10636-SOPRESSATA A/V (PORCIONES)",0
+87,"10637-PANCETA AHUMADA TROZOS A/V",0
+52,"10640-FRANK. CORTOS 2X8 UD. PROMO",0
+102,"10641-JAMON CRUDO SPECK",0
+53,"10708-FRANK. LIGHT RED.EN SAL 2X8U PROMO",0
+80,"10710-MORTADELIN + QUESITO PROMO",0
+62,"10717-CHACARERO FINCETA A/V",0
+89,"10718-LONGANIZA FINCETA A/V",0
+77,"10719-SALAME FINCETA A/V",0
+64,"10720-SALAMIN A/V",0
+57,"10721-CHACARERO A/V",0
+83,"10722-LONGANIZA A/V",0
+74,"10755-LECHON ARROLLADO",0
+104,"10781-CHOR PARRILLERO ESPETO",2
+105,"10782-MORC DULCE ESPETO",0
+106,"10783-MORC SALADA ESPETO",0
+15,"10791-HAMB. EXTRA 1EST X 20+4U",0
+85,"10795-BONDIOLA A/V + CHORIZO X3 DE REGALO",0
+86,"10837-JAMON GRAN RESERVA",0
+42,"10842-DOLF. FRANK. CORTOS X8",0
+65,"10853-SALCHICHA PARRILLERA KOSHER A/V",0
+66,"10858-PATE DE HIGADO",0
+67,"10859-PATE DE LENGUA",0
+59,"10860-PATE DE JAMON",90
+103,"10881-LENGUA COCIDA A/V",0
+55,"10882-SALAMIN KOSHER A/V",0
+72,"10885-PATE DE LENGUA AHUMADO",0
+63,"10886-PATE DE HIGADO AHUMADO CON TRUFAS",0
+60,"10937-HAMB. EXTRA GRANDE 1ESTX6U",0
+82,"10939-CHACARERO A/V PRECIO LIDER",0
+46,"10940-LONGANIZA A/V PRECIO LIDER",0
+47,"10941-SALAMIN A/V PRECIO LIDER",0
+31,"10953-RACK DE CERDO A/V",0
+101,"10954-RACK DE CERDO ENTERO",0
+2,"10981-ASADO KOSHER",10
+3,"10982-BIFE ANCHO KOSHER",4
+1,"10983-AGUJA KOSHER",0
+8,"10984-PALETA KOSHER",0
+9,"10985-PECHO KOSHER",0
+6,"10986-MARUCHA KOSHER",90
+112,"10987-CHINGOLO KOSHER",0
+4,"10988-BRAZUELO KOSHER",0
+7,"10990-MATAMBRE KOSHER",90
+108,"10995-1/2 RES",0
+41,"10996-TRASERO KOSHER",0
+5,"156-FIS T.M.",0
+
+
+### C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\data\articles.json
+
+[
+  {
+    "id": 22,
+    "name": "10003-CHOR. PARRILLERO",
+    "quantity": 0
+  },
+  {
+    "id": 48,
+    "name": "10005-CHOR. COL. CANTIMPALO",
+    "quantity": 10
+  },
+  {
+    "id": 23,
+    "name": "10007-JAMON AL ROJO",
+    "quantity": 0
+  },
+  {
+    "id": 91,
+    "name": "10014-PALETA CON HUESO",
+    "quantity": 0
+  },
+  {
+    "id": 71,
+    "name": "10018-ESPINAZO",
+    "quantity": 0
+  },
+  {
+    "id": 73,
+    "name": "10022-ASADO",
+    "quantity": 98765
+  },
+  {
+    "id": 107,
+    "name": "10033-PATAS Y BRAZUELOS",
+    "quantity": 0
+  },
+  {
+    "id": 10,
+    "name": "10045-LECHON",
+    "quantity": 0
+  },
+  {
+    "id": 111,
+    "name": "10047-1/2 S/CAB C/C",
+    "quantity": 0
+  },
+  {
+    "id": 84,
+    "name": "10048-1/2 S/CAB S/C",
+    "quantity": 0
+  },
+  {
+    "id": 17,
+    "name": "10061-ASADO A/V CAMPOSUR",
+    "quantity": 90
+  },
+  {
+    "id": 30,
+    "name": "10062-PECHITO PARR. A/V CAMPOSUR",
+    "quantity": 60
+  },
+  {
+    "id": 34,
+    "name": "10063-BONDIOLA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 100,
+    "name": "10064-LOMITO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 24,
+    "name": "10065-MATAMBRITO A/V CAMPOSUR",
+    "quantity": 90
+  },
+  {
+    "id": 32,
+    "name": "10066-SECRETO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 99,
+    "name": "10068-COSTILLITA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 38,
+    "name": "10069-PICANA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 33,
+    "name": "10070-BOLA DE LOMO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 28,
+    "name": "10071-NALGA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 21,
+    "name": "10072-COL. DE CUAD. A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 29,
+    "name": "10073-PECETO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 92,
+    "name": "10074-MILANESAS A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 94,
+    "name": "10075-MEDALLONES A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 96,
+    "name": "10076-PULPA P/MILAN. A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 95,
+    "name": "10077-CHULETA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 79,
+    "name": "10101-COCHINILLO",
+    "quantity": 0
+  },
+  {
+    "id": 40,
+    "name": "10118-CHOR. EXTRA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 90,
+    "name": "10170-CHOR.DE CORDERO A/V X3U",
+    "quantity": 0
+  },
+  {
+    "id": 26,
+    "name": "10176-MORC. DULCE",
+    "quantity": 0
+  },
+  {
+    "id": 27,
+    "name": "10177-MORC. SALADA",
+    "quantity": 0
+  },
+  {
+    "id": 76,
+    "name": "10183-CHOR.C/CHEDDAR Y MORRON",
+    "quantity": 0
+  },
+  {
+    "id": 12,
+    "name": "10188-BONDIOLA RELLENA SALADA",
+    "quantity": 90
+  },
+  {
+    "id": 11,
+    "name": "10189-BONDIOLA RELLENA AGRID.",
+    "quantity": 0
+  },
+  {
+    "id": 98,
+    "name": "10190-HIGADO A LA TELA",
+    "quantity": 0
+  },
+  {
+    "id": 39,
+    "name": "10191-RINON A LA TELA",
+    "quantity": 0
+  },
+  {
+    "id": 68,
+    "name": "102001-DESC. CONCEDIDOS T. BÁS.",
+    "quantity": 0
+  },
+  {
+    "id": 69,
+    "name": "10205-DESCUENTOS CONCEDIDOS",
+    "quantity": 0
+  },
+  {
+    "id": 81,
+    "name": "10231-PAMPLONA AGRIDULCE",
+    "quantity": 0
+  },
+  {
+    "id": 14,
+    "name": "10232-PAMPLONA SALADA",
+    "quantity": 0
+  },
+  {
+    "id": 25,
+    "name": "10237-MORC. DUL. C/N Y M. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 54,
+    "name": "10238-MORC. SAL. C/Q Y A. A/V",
+    "quantity": 90
+  },
+  {
+    "id": 51,
+    "name": "10248-BUTIFARRA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 36,
+    "name": "10283-CHOR.C/QUESO Y ACEI. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 35,
+    "name": "10284-CHOR.C/CHEDDAR Y MORR. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 49,
+    "name": "10286-SALCH. PARR.C/QUESO A/V",
+    "quantity": 0
+  },
+  {
+    "id": 88,
+    "name": "10328-LEONESA A/V 1/2",
+    "quantity": 0
+  },
+  {
+    "id": 97,
+    "name": "10343-QUESO DE CERDO MINI",
+    "quantity": 0
+  },
+  {
+    "id": 75,
+    "name": "10415-MATAMBRE DE CARNE RELL.",
+    "quantity": 0
+  },
+  {
+    "id": 56,
+    "name": "10425-JAMON COCIDO PERITA",
+    "quantity": 0
+  },
+  {
+    "id": 45,
+    "name": "10432-KASSLER A/V",
+    "quantity": 90
+  },
+  {
+    "id": 110,
+    "name": "10459-DOLF.HAMB.CLAS.X3U (FP)",
+    "quantity": 0
+  },
+  {
+    "id": 19,
+    "name": "10466-BABY RIBS A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 18,
+    "name": "10467-ASADO DE CEN. A/V CAMPOSUR",
+    "quantity": 10
+  },
+  {
+    "id": 44,
+    "name": "10470-JAMON DE CAMPO",
+    "quantity": 9
+  },
+  {
+    "id": 20,
+    "name": "10513-BIFE DE VACIO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 78,
+    "name": "10516-PANCETA AMERICANA",
+    "quantity": 0
+  },
+  {
+    "id": 50,
+    "name": "10542-HAMB.PARRILLERA 1ESTX12U",
+    "quantity": 0
+  },
+  {
+    "id": 13,
+    "name": "10558-BROCHETTES DE CERDO",
+    "quantity": 0
+  },
+  {
+    "id": 37,
+    "name": "10563-CHORIZO KOSHER A/V X3U",
+    "quantity": 10
+  },
+  {
+    "id": 93,
+    "name": "10564-LONGANIZA FINCETA",
+    "quantity": 0
+  },
+  {
+    "id": 43,
+    "name": "10567-FRANK. KOSHER CORTOS X8U",
+    "quantity": 0
+  },
+  {
+    "id": 61,
+    "name": "10574-HAMB.LIGHT S/SAL 1ESTX12U",
+    "quantity": 0
+  },
+  {
+    "id": 16,
+    "name": "10575-HAMB.KOSHER 1ESTX12U",
+    "quantity": 0
+  },
+  {
+    "id": 58,
+    "name": "10582-PASTRAMI",
+    "quantity": 0
+  },
+  {
+    "id": 109,
+    "name": "10595-FRANK. LIGHT RED.EN SAL X8U",
+    "quantity": 0
+  },
+  {
+    "id": 70,
+    "name": "10636-SOPRESSATA A/V (PORCIONES)",
+    "quantity": 0
+  },
+  {
+    "id": 87,
+    "name": "10637-PANCETA AHUMADA TROZOS A/V",
+    "quantity": 0
+  },
+  {
+    "id": 52,
+    "name": "10640-FRANK. CORTOS 2X8 UD. PROMO",
+    "quantity": 0
+  },
+  {
+    "id": 102,
+    "name": "10641-JAMON CRUDO SPECK",
+    "quantity": 0
+  },
+  {
+    "id": 53,
+    "name": "10708-FRANK. LIGHT RED.EN SAL 2X8U PROMO",
+    "quantity": 0
+  },
+  {
+    "id": 80,
+    "name": "10710-MORTADELIN + QUESITO PROMO",
+    "quantity": 0
+  },
+  {
+    "id": 62,
+    "name": "10717-CHACARERO FINCETA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 89,
+    "name": "10718-LONGANIZA FINCETA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 77,
+    "name": "10719-SALAME FINCETA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 64,
+    "name": "10720-SALAMIN A/V",
+    "quantity": 0
+  },
+  {
+    "id": 57,
+    "name": "10721-CHACARERO A/V",
+    "quantity": 0
+  },
+  {
+    "id": 83,
+    "name": "10722-LONGANIZA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 74,
+    "name": "10755-LECHON ARROLLADO",
+    "quantity": 0
+  },
+  {
+    "id": 104,
+    "name": "10781-CHOR PARRILLERO ESPETO",
+    "quantity": 2
+  },
+  {
+    "id": 105,
+    "name": "10782-MORC DULCE ESPETO",
+    "quantity": 0
+  },
+  {
+    "id": 106,
+    "name": "10783-MORC SALADA ESPETO",
+    "quantity": 0
+  },
+  {
+    "id": 15,
+    "name": "10791-HAMB. EXTRA 1EST X 20+4U",
+    "quantity": 0
+  },
+  {
+    "id": 85,
+    "name": "10795-BONDIOLA A/V + CHORIZO X3 DE REGALO",
+    "quantity": 0
+  },
+  {
+    "id": 86,
+    "name": "10837-JAMON GRAN RESERVA",
+    "quantity": 0
+  },
+  {
+    "id": 42,
+    "name": "10842-DOLF. FRANK. CORTOS X8",
+    "quantity": 0
+  },
+  {
+    "id": 65,
+    "name": "10853-SALCHICHA PARRILLERA KOSHER A/V",
+    "quantity": 0
+  },
+  {
+    "id": 66,
+    "name": "10858-PATE DE HIGADO",
+    "quantity": 0
+  },
+  {
+    "id": 67,
+    "name": "10859-PATE DE LENGUA",
+    "quantity": 0
+  },
+  {
+    "id": 59,
+    "name": "10860-PATE DE JAMON",
+    "quantity": 90
+  },
+  {
+    "id": 103,
+    "name": "10881-LENGUA COCIDA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 55,
+    "name": "10882-SALAMIN KOSHER A/V",
+    "quantity": 0
+  },
+  {
+    "id": 72,
+    "name": "10885-PATE DE LENGUA AHUMADO",
+    "quantity": 0
+  },
+  {
+    "id": 63,
+    "name": "10886-PATE DE HIGADO AHUMADO CON TRUFAS",
+    "quantity": 0
+  },
+  {
+    "id": 60,
+    "name": "10937-HAMB. EXTRA GRANDE 1ESTX6U",
+    "quantity": 0
+  },
+  {
+    "id": 82,
+    "name": "10939-CHACARERO A/V PRECIO LIDER",
+    "quantity": 0
+  },
+  {
+    "id": 46,
+    "name": "10940-LONGANIZA A/V PRECIO LIDER",
+    "quantity": 0
+  },
+  {
+    "id": 47,
+    "name": "10941-SALAMIN A/V PRECIO LIDER",
+    "quantity": 0
+  },
+  {
+    "id": 31,
+    "name": "10953-RACK DE CERDO A/V",
+    "quantity": 0
+  },
+  {
+    "id": 101,
+    "name": "10954-RACK DE CERDO ENTERO",
+    "quantity": 0
+  },
+  {
+    "id": 2,
+    "name": "10981-ASADO KOSHER",
+    "quantity": 10
+  },
+  {
+    "id": 3,
+    "name": "10982-BIFE ANCHO KOSHER",
+    "quantity": 4
+  },
+  {
+    "id": 1,
+    "name": "10983-AGUJA KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 8,
+    "name": "10984-PALETA KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 9,
+    "name": "10985-PECHO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 6,
+    "name": "10986-MARUCHA KOSHER",
+    "quantity": 90
+  },
+  {
+    "id": 112,
+    "name": "10987-CHINGOLO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 4,
+    "name": "10988-BRAZUELO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 7,
+    "name": "10990-MATAMBRE KOSHER",
+    "quantity": 90
+  },
+  {
+    "id": 108,
+    "name": "10995-1/2 RES",
+    "quantity": 0
+  },
+  {
+    "id": 41,
+    "name": "10996-TRASERO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 5,
+    "name": "156-FIS T.M.",
+    "quantity": 0
+  }
+]
+
+
+### C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\data\articulos.csv
+
+"id","name","quantity"
+22,"10003-CHOR. PARRILLERO",0
+48,"10005-CHOR. COL. CANTIMPALO",10
+23,"10007-JAMON AL ROJO",0
+91,"10014-PALETA CON HUESO",0
+71,"10018-ESPINAZO",0
+73,"10022-ASADO",98765
+107,"10033-PATAS Y BRAZUELOS",0
+10,"10045-LECHON",0
+111,"10047-1/2 S/CAB C/C",0
+84,"10048-1/2 S/CAB S/C",0
+17,"10061-ASADO A/V CAMPOSUR",90
+30,"10062-PECHITO PARR. A/V CAMPOSUR",60
+34,"10063-BONDIOLA A/V CAMPOSUR",0
+100,"10064-LOMITO A/V CAMPOSUR",0
+24,"10065-MATAMBRITO A/V CAMPOSUR",90
+32,"10066-SECRETO A/V CAMPOSUR",0
+99,"10068-COSTILLITA A/V CAMPOSUR",0
+38,"10069-PICANA A/V CAMPOSUR",0
+33,"10070-BOLA DE LOMO A/V CAMPOSUR",0
+28,"10071-NALGA A/V CAMPOSUR",0
+21,"10072-COL. DE CUAD. A/V CAMPOSUR",0
+29,"10073-PECETO A/V CAMPOSUR",0
+92,"10074-MILANESAS A/V CAMPOSUR",0
+94,"10075-MEDALLONES A/V CAMPOSUR",0
+96,"10076-PULPA P/MILAN. A/V CAMPOSUR",0
+95,"10077-CHULETA A/V CAMPOSUR",0
+79,"10101-COCHINILLO",0
+40,"10118-CHOR. EXTRA A/V",0
+90,"10170-CHOR.DE CORDERO A/V X3U",0
+26,"10176-MORC. DULCE",0
+27,"10177-MORC. SALADA",0
+76,"10183-CHOR.C/CHEDDAR Y MORRON",0
+12,"10188-BONDIOLA RELLENA SALADA",90
+11,"10189-BONDIOLA RELLENA AGRID.",0
+98,"10190-HIGADO A LA TELA",0
+39,"10191-RINON A LA TELA",0
+68,"102001-DESC. CONCEDIDOS T. BÁS.",0
+69,"10205-DESCUENTOS CONCEDIDOS",0
+81,"10231-PAMPLONA AGRIDULCE",0
+14,"10232-PAMPLONA SALADA",0
+25,"10237-MORC. DUL. C/N Y M. A/V",0
+54,"10238-MORC. SAL. C/Q Y A. A/V",90
+51,"10248-BUTIFARRA A/V",0
+36,"10283-CHOR.C/QUESO Y ACEI. A/V",0
+35,"10284-CHOR.C/CHEDDAR Y MORR. A/V",0
+49,"10286-SALCH. PARR.C/QUESO A/V",0
+88,"10328-LEONESA A/V 1/2",0
+97,"10343-QUESO DE CERDO MINI",0
+75,"10415-MATAMBRE DE CARNE RELL.",0
+56,"10425-JAMON COCIDO PERITA",0
+45,"10432-KASSLER A/V",90
+110,"10459-DOLF.HAMB.CLAS.X3U (FP)",0
+19,"10466-BABY RIBS A/V CAMPOSUR",0
+18,"10467-ASADO DE CEN. A/V CAMPOSUR",10
+44,"10470-JAMON DE CAMPO",9
+20,"10513-BIFE DE VACIO A/V CAMPOSUR",0
+78,"10516-PANCETA AMERICANA",0
+50,"10542-HAMB.PARRILLERA 1ESTX12U",0
+13,"10558-BROCHETTES DE CERDO",0
+37,"10563-CHORIZO KOSHER A/V X3U",10
+93,"10564-LONGANIZA FINCETA",0
+43,"10567-FRANK. KOSHER CORTOS X8U",0
+61,"10574-HAMB.LIGHT S/SAL 1ESTX12U",0
+16,"10575-HAMB.KOSHER 1ESTX12U",0
+58,"10582-PASTRAMI",0
+109,"10595-FRANK. LIGHT RED.EN SAL X8U",0
+70,"10636-SOPRESSATA A/V (PORCIONES)",0
+87,"10637-PANCETA AHUMADA TROZOS A/V",0
+52,"10640-FRANK. CORTOS 2X8 UD. PROMO",0
+102,"10641-JAMON CRUDO SPECK",0
+53,"10708-FRANK. LIGHT RED.EN SAL 2X8U PROMO",0
+80,"10710-MORTADELIN + QUESITO PROMO",0
+62,"10717-CHACARERO FINCETA A/V",0
+89,"10718-LONGANIZA FINCETA A/V",0
+77,"10719-SALAME FINCETA A/V",0
+64,"10720-SALAMIN A/V",0
+57,"10721-CHACARERO A/V",0
+83,"10722-LONGANIZA A/V",0
+74,"10755-LECHON ARROLLADO",0
+104,"10781-CHOR PARRILLERO ESPETO",2
+105,"10782-MORC DULCE ESPETO",0
+106,"10783-MORC SALADA ESPETO",0
+15,"10791-HAMB. EXTRA 1EST X 20+4U",0
+85,"10795-BONDIOLA A/V + CHORIZO X3 DE REGALO",0
+86,"10837-JAMON GRAN RESERVA",0
+42,"10842-DOLF. FRANK. CORTOS X8",0
+65,"10853-SALCHICHA PARRILLERA KOSHER A/V",0
+66,"10858-PATE DE HIGADO",0
+67,"10859-PATE DE LENGUA",0
+59,"10860-PATE DE JAMON",90
+103,"10881-LENGUA COCIDA A/V",0
+55,"10882-SALAMIN KOSHER A/V",0
+72,"10885-PATE DE LENGUA AHUMADO",0
+63,"10886-PATE DE HIGADO AHUMADO CON TRUFAS",0
+60,"10937-HAMB. EXTRA GRANDE 1ESTX6U",0
+82,"10939-CHACARERO A/V PRECIO LIDER",0
+46,"10940-LONGANIZA A/V PRECIO LIDER",0
+47,"10941-SALAMIN A/V PRECIO LIDER",0
+31,"10953-RACK DE CERDO A/V",0
+101,"10954-RACK DE CERDO ENTERO",0
+2,"10981-ASADO KOSHER",10
+3,"10982-BIFE ANCHO KOSHER",4
+1,"10983-AGUJA KOSHER",0
+8,"10984-PALETA KOSHER",0
+9,"10985-PECHO KOSHER",0
+6,"10986-MARUCHA KOSHER",90
+112,"10987-CHINGOLO KOSHER",0
+4,"10988-BRAZUELO KOSHER",0
+7,"10990-MATAMBRE KOSHER",90
+108,"10995-1/2 RES",0
+41,"10996-TRASERO KOSHER",0
+5,"156-FIS T.M.",0
+
+
+### C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\data\convertCsvToJson.js
+
+const fs = require("fs");
+const path = require("path");
+const csvParser = require("csv-parser");
+
+// Ruta del archivo CSV
+const csvFilePath = path.join(__dirname, "./articles.csv");
+
+// Ruta del archivo JSON de salida
+const jsonFilePath = path.join(__dirname, "./articles.json");
+
+// Función para convertir CSV a JSON
+const convertCsvToJson = () => {
+    const articles = [];
+    fs.createReadStream(csvFilePath)
+        .pipe(csvParser())
+        .on("data", (row) => {
+            articles.push({
+                id: parseInt(row.id),
+                name: row.name,
+                quantity: row.quantity === "" ? null : parseInt(row.quantity),
+            });
+        })
+        .on("end", () => {
+            fs.writeFileSync(jsonFilePath, JSON.stringify(articles, null, 2), "utf-8");
+            console.log(`Archivo JSON generado exitosamente en: ${jsonFilePath}`);
+        })
+        .on("error", (error) => {
+            console.error("Error al procesar el archivo CSV:", error.message);
+        });
+};
+
+// Ejecutar la conversión
+convertCsvToJson();
+
+
+
+### C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\data\stock_2025-01-10-18-50-26.json
+
+[
+  {
+    "id": 1,
+    "name": "10983-AGUJA KOSHER",
+    "quantity": 9876
+  },
+  {
+    "id": 2,
+    "name": "10981-ASADO KOSHER",
+    "quantity": 555555
+  },
+  {
+    "id": 3,
+    "name": "10982-BIFE ANCHO KOSHER",
+    "quantity": 1
+  },
+  {
+    "id": 4,
+    "name": "10988-BRAZUELO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 5,
+    "name": "156-FIS T.M.",
+    "quantity": 0
+  },
+  {
+    "id": 6,
+    "name": "10986-MARUCHA KOSHER",
+    "quantity": 4
+  },
+  {
+    "id": 7,
+    "name": "10990-MATAMBRE KOSHER",
+    "quantity": 898989
+  },
+  {
+    "id": 8,
+    "name": "10984-PALETA KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 9,
+    "name": "10985-PECHO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 10,
+    "name": "10045-LECHON",
+    "quantity": 0
+  },
+  {
+    "id": 11,
+    "name": "10189-BONDIOLA RELLENA AGRID.",
+    "quantity": 1
+  },
+  {
+    "id": 12,
+    "name": "10188-BONDIOLA RELLENA SALADA",
+    "quantity": 90
+  },
+  {
+    "id": 13,
+    "name": "10558-BROCHETTES DE CERDO",
+    "quantity": 0
+  },
+  {
+    "id": 14,
+    "name": "10232-PAMPLONA SALADA",
+    "quantity": 0
+  },
+  {
+    "id": 15,
+    "name": "10791-HAMB. EXTRA 1EST X 20+4U",
+    "quantity": 0
+  },
+  {
+    "id": 16,
+    "name": "10575-HAMB.KOSHER 1ESTX12U",
+    "quantity": 0
+  },
+  {
+    "id": 17,
+    "name": "10061-ASADO A/V CAMPOSUR",
+    "quantity": 9999
+  },
+  {
+    "id": 18,
+    "name": "10467-ASADO DE CEN. A/V CAMPOSUR",
+    "quantity": 10
+  },
+  {
+    "id": 19,
+    "name": "10466-BABY RIBS A/V CAMPOSUR",
+    "quantity": 1
+  },
+  {
+    "id": 20,
+    "name": "10513-BIFE DE VACIO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 21,
+    "name": "10072-COL. DE CUAD. A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 22,
+    "name": "10003-CHOR. PARRILLERO",
+    "quantity": 0
+  },
+  {
+    "id": 23,
+    "name": "10007-JAMON AL ROJO",
+    "quantity": 9
+  },
+  {
+    "id": 24,
+    "name": "10065-MATAMBRITO A/V CAMPOSUR",
+    "quantity": 10
+  },
+  {
+    "id": 25,
+    "name": "10237-MORC. DUL. C/N Y M. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 26,
+    "name": "10176-MORC. DULCE",
+    "quantity": 0
+  },
+  {
+    "id": 27,
+    "name": "10177-MORC. SALADA",
+    "quantity": 0
+  },
+  {
+    "id": 28,
+    "name": "10071-NALGA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 29,
+    "name": "10073-PECETO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 30,
+    "name": "10062-PECHITO PARR. A/V CAMPOSUR",
+    "quantity": 60
+  },
+  {
+    "id": 31,
+    "name": "10953-RACK DE CERDO A/V",
+    "quantity": 0
+  },
+  {
+    "id": 32,
+    "name": "10066-SECRETO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 33,
+    "name": "10070-BOLA DE LOMO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 34,
+    "name": "10063-BONDIOLA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 35,
+    "name": "10284-CHOR.C/CHEDDAR Y MORR. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 36,
+    "name": "10283-CHOR.C/QUESO Y ACEI. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 37,
+    "name": "10563-CHORIZO KOSHER A/V X3U",
+    "quantity": 10
+  },
+  {
+    "id": 38,
+    "name": "10069-PICANA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 39,
+    "name": "10191-RINON A LA TELA",
+    "quantity": 0
+  },
+  {
+    "id": 40,
+    "name": "10118-CHOR. EXTRA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 41,
+    "name": "10996-TRASERO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 42,
+    "name": "10842-DOLF. FRANK. CORTOS X8",
+    "quantity": 0
+  },
+  {
+    "id": 43,
+    "name": "10567-FRANK. KOSHER CORTOS X8U",
+    "quantity": 0
+  },
+  {
+    "id": 44,
+    "name": "10470-JAMON DE CAMPO",
+    "quantity": 88998899
+  },
+  {
+    "id": 45,
+    "name": "10432-KASSLER A/V",
+    "quantity": 12345
+  },
+  {
+    "id": 46,
+    "name": "10940-LONGANIZA A/V PRECIO LIDER",
+    "quantity": 0
+  },
+  {
+    "id": 47,
+    "name": "10941-SALAMIN A/V PRECIO LIDER",
+    "quantity": 0
+  },
+  {
+    "id": 48,
+    "name": "10005-CHOR. COL. CANTIMPALO",
+    "quantity": 10
+  },
+  {
+    "id": 49,
+    "name": "10286-SALCH. PARR.C/QUESO A/V",
+    "quantity": 0
+  },
+  {
+    "id": 50,
+    "name": "10542-HAMB.PARRILLERA 1ESTX12U",
+    "quantity": 0
+  },
+  {
+    "id": 51,
+    "name": "10248-BUTIFARRA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 52,
+    "name": "10640-FRANK. CORTOS 2X8 UD. PROMO",
+    "quantity": 0
+  },
+  {
+    "id": 53,
+    "name": "10708-FRANK. LIGHT RED.EN SAL 2X8U PROMO",
+    "quantity": 0
+  },
+  {
+    "id": 54,
+    "name": "10238-MORC. SAL. C/Q Y A. A/V",
+    "quantity": 90
+  },
+  {
+    "id": 55,
+    "name": "10882-SALAMIN KOSHER A/V",
+    "quantity": 0
+  },
+  {
+    "id": 56,
+    "name": "10425-JAMON COCIDO PERITA",
+    "quantity": 0
+  },
+  {
+    "id": 57,
+    "name": "10721-CHACARERO A/V",
+    "quantity": 0
+  },
+  {
+    "id": 58,
+    "name": "10582-PASTRAMI",
+    "quantity": 0
+  },
+  {
+    "id": 59,
+    "name": "10860-PATE DE JAMON",
+    "quantity": 90
+  },
+  {
+    "id": 60,
+    "name": "10937-HAMB. EXTRA GRANDE 1ESTX6U",
+    "quantity": 0
+  },
+  {
+    "id": 61,
+    "name": "10574-HAMB.LIGHT S/SAL 1ESTX12U",
+    "quantity": 0
+  },
+  {
+    "id": 62,
+    "name": "10717-CHACARERO FINCETA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 63,
+    "name": "10886-PATE DE HIGADO AHUMADO CON TRUFAS",
+    "quantity": 0
+  },
+  {
+    "id": 64,
+    "name": "10720-SALAMIN A/V",
+    "quantity": 0
+  },
+  {
+    "id": 65,
+    "name": "10853-SALCHICHA PARRILLERA KOSHER A/V",
+    "quantity": 0
+  },
+  {
+    "id": 66,
+    "name": "10858-PATE DE HIGADO",
+    "quantity": 0
+  },
+  {
+    "id": 67,
+    "name": "10859-PATE DE LENGUA",
+    "quantity": 0
+  },
+  {
+    "id": 68,
+    "name": "102001-DESC. CONCEDIDOS T. BÁS.",
+    "quantity": 0
+  },
+  {
+    "id": 69,
+    "name": "10205-DESCUENTOS CONCEDIDOS",
+    "quantity": 0
+  },
+  {
+    "id": 70,
+    "name": "10636-SOPRESSATA A/V (PORCIONES)",
+    "quantity": 0
+  },
+  {
+    "id": 71,
+    "name": "10018-ESPINAZO",
+    "quantity": 0
+  },
+  {
+    "id": 72,
+    "name": "10885-PATE DE LENGUA AHUMADO",
+    "quantity": 0
+  },
+  {
+    "id": 73,
+    "name": "10022-ASADO",
+    "quantity": 999
+  },
+  {
+    "id": 74,
+    "name": "10755-LECHON ARROLLADO",
+    "quantity": 0
+  },
+  {
+    "id": 75,
+    "name": "10415-MATAMBRE DE CARNE RELL.",
+    "quantity": 999
+  },
+  {
+    "id": 76,
+    "name": "10183-CHOR.C/CHEDDAR Y MORRON",
+    "quantity": 0
+  },
+  {
+    "id": 77,
+    "name": "10719-SALAME FINCETA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 78,
+    "name": "10516-PANCETA AMERICANA",
+    "quantity": 0
+  },
+  {
+    "id": 79,
+    "name": "10101-COCHINILLO",
+    "quantity": 0
+  },
+  {
+    "id": 80,
+    "name": "10710-MORTADELIN + QUESITO PROMO",
+    "quantity": 0
+  },
+  {
+    "id": 81,
+    "name": "10231-PAMPLONA AGRIDULCE",
+    "quantity": 0
+  },
+  {
+    "id": 82,
+    "name": "10939-CHACARERO A/V PRECIO LIDER",
+    "quantity": 0
+  },
+  {
+    "id": 83,
+    "name": "10722-LONGANIZA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 84,
+    "name": "10048-1/2 S/CAB S/C",
+    "quantity": 0
+  },
+  {
+    "id": 85,
+    "name": "10795-BONDIOLA A/V + CHORIZO X3 DE REGALO",
+    "quantity": 0
+  },
+  {
+    "id": 86,
+    "name": "10837-JAMON GRAN RESERVA",
+    "quantity": 0
+  },
+  {
+    "id": 87,
+    "name": "10637-PANCETA AHUMADA TROZOS A/V",
+    "quantity": 0
+  },
+  {
+    "id": 88,
+    "name": "10328-LEONESA A/V 1/2",
+    "quantity": 0
+  },
+  {
+    "id": 89,
+    "name": "10718-LONGANIZA FINCETA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 90,
+    "name": "10170-CHOR.DE CORDERO A/V X3U",
+    "quantity": 0
+  },
+  {
+    "id": 91,
+    "name": "10014-PALETA CON HUESO",
+    "quantity": 0
+  },
+  {
+    "id": 92,
+    "name": "10074-MILANESAS A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 93,
+    "name": "10564-LONGANIZA FINCETA",
+    "quantity": 0
+  },
+  {
+    "id": 94,
+    "name": "10075-MEDALLONES A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 95,
+    "name": "10077-CHULETA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 96,
+    "name": "10076-PULPA P/MILAN. A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 97,
+    "name": "10343-QUESO DE CERDO MINI",
+    "quantity": 111111111
+  },
+  {
+    "id": 98,
+    "name": "10190-HIGADO A LA TELA",
+    "quantity": 0
+  },
+  {
+    "id": 99,
+    "name": "10068-COSTILLITA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 100,
+    "name": "10064-LOMITO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 101,
+    "name": "10954-RACK DE CERDO ENTERO",
+    "quantity": 0
+  },
+  {
+    "id": 102,
+    "name": "10641-JAMON CRUDO SPECK",
+    "quantity": 0
+  },
+  {
+    "id": 103,
+    "name": "10881-LENGUA COCIDA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 104,
+    "name": "10781-CHOR PARRILLERO ESPETO",
+    "quantity": 2
+  },
+  {
+    "id": 105,
+    "name": "10782-MORC DULCE ESPETO",
+    "quantity": 0
+  },
+  {
+    "id": 106,
+    "name": "10783-MORC SALADA ESPETO",
+    "quantity": 0
+  },
+  {
+    "id": 107,
+    "name": "10033-PATAS Y BRAZUELOS",
+    "quantity": 0
+  },
+  {
+    "id": 108,
+    "name": "10995-1/2 RES",
+    "quantity": 0
+  },
+  {
+    "id": 109,
+    "name": "10595-FRANK. LIGHT RED.EN SAL X8U",
+    "quantity": 0
+  },
+  {
+    "id": 110,
+    "name": "10459-DOLF.HAMB.CLAS.X3U (FP)",
+    "quantity": 0
+  },
+  {
+    "id": 111,
+    "name": "10047-1/2 S/CAB C/C",
+    "quantity": 0
+  },
+  {
+    "id": 112,
+    "name": "10987-CHINGOLO KOSHER",
+    "quantity": 0
+  }
+]
+
+
+### C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\data\stock_2025-01-10-21-21-59.json
+
+[]
+
+
+### C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\data\stock_confirmed_2025-01-10-18-50-30.json
+
+[
+  {
+    "id": 1,
+    "name": "10983-AGUJA KOSHER",
+    "quantity": 9876
+  },
+  {
+    "id": 2,
+    "name": "10981-ASADO KOSHER",
+    "quantity": 555555
+  },
+  {
+    "id": 3,
+    "name": "10982-BIFE ANCHO KOSHER",
+    "quantity": 1
+  },
+  {
+    "id": 4,
+    "name": "10988-BRAZUELO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 5,
+    "name": "156-FIS T.M.",
+    "quantity": 0
+  },
+  {
+    "id": 6,
+    "name": "10986-MARUCHA KOSHER",
+    "quantity": 4
+  },
+  {
+    "id": 7,
+    "name": "10990-MATAMBRE KOSHER",
+    "quantity": 898989
+  },
+  {
+    "id": 8,
+    "name": "10984-PALETA KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 9,
+    "name": "10985-PECHO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 10,
+    "name": "10045-LECHON",
+    "quantity": 0
+  },
+  {
+    "id": 11,
+    "name": "10189-BONDIOLA RELLENA AGRID.",
+    "quantity": 1
+  },
+  {
+    "id": 12,
+    "name": "10188-BONDIOLA RELLENA SALADA",
+    "quantity": 90
+  },
+  {
+    "id": 13,
+    "name": "10558-BROCHETTES DE CERDO",
+    "quantity": 0
+  },
+  {
+    "id": 14,
+    "name": "10232-PAMPLONA SALADA",
+    "quantity": 0
+  },
+  {
+    "id": 15,
+    "name": "10791-HAMB. EXTRA 1EST X 20+4U",
+    "quantity": 0
+  },
+  {
+    "id": 16,
+    "name": "10575-HAMB.KOSHER 1ESTX12U",
+    "quantity": 0
+  },
+  {
+    "id": 17,
+    "name": "10061-ASADO A/V CAMPOSUR",
+    "quantity": 9999
+  },
+  {
+    "id": 18,
+    "name": "10467-ASADO DE CEN. A/V CAMPOSUR",
+    "quantity": 10
+  },
+  {
+    "id": 19,
+    "name": "10466-BABY RIBS A/V CAMPOSUR",
+    "quantity": 1
+  },
+  {
+    "id": 20,
+    "name": "10513-BIFE DE VACIO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 21,
+    "name": "10072-COL. DE CUAD. A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 22,
+    "name": "10003-CHOR. PARRILLERO",
+    "quantity": 0
+  },
+  {
+    "id": 23,
+    "name": "10007-JAMON AL ROJO",
+    "quantity": 9
+  },
+  {
+    "id": 24,
+    "name": "10065-MATAMBRITO A/V CAMPOSUR",
+    "quantity": 10
+  },
+  {
+    "id": 25,
+    "name": "10237-MORC. DUL. C/N Y M. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 26,
+    "name": "10176-MORC. DULCE",
+    "quantity": 0
+  },
+  {
+    "id": 27,
+    "name": "10177-MORC. SALADA",
+    "quantity": 0
+  },
+  {
+    "id": 28,
+    "name": "10071-NALGA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 29,
+    "name": "10073-PECETO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 30,
+    "name": "10062-PECHITO PARR. A/V CAMPOSUR",
+    "quantity": 60
+  },
+  {
+    "id": 31,
+    "name": "10953-RACK DE CERDO A/V",
+    "quantity": 0
+  },
+  {
+    "id": 32,
+    "name": "10066-SECRETO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 33,
+    "name": "10070-BOLA DE LOMO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 34,
+    "name": "10063-BONDIOLA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 35,
+    "name": "10284-CHOR.C/CHEDDAR Y MORR. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 36,
+    "name": "10283-CHOR.C/QUESO Y ACEI. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 37,
+    "name": "10563-CHORIZO KOSHER A/V X3U",
+    "quantity": 10
+  },
+  {
+    "id": 38,
+    "name": "10069-PICANA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 39,
+    "name": "10191-RINON A LA TELA",
+    "quantity": 0
+  },
+  {
+    "id": 40,
+    "name": "10118-CHOR. EXTRA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 41,
+    "name": "10996-TRASERO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 42,
+    "name": "10842-DOLF. FRANK. CORTOS X8",
+    "quantity": 0
+  },
+  {
+    "id": 43,
+    "name": "10567-FRANK. KOSHER CORTOS X8U",
+    "quantity": 0
+  },
+  {
+    "id": 44,
+    "name": "10470-JAMON DE CAMPO",
+    "quantity": 88998899
+  },
+  {
+    "id": 45,
+    "name": "10432-KASSLER A/V",
+    "quantity": 12345
+  },
+  {
+    "id": 46,
+    "name": "10940-LONGANIZA A/V PRECIO LIDER",
+    "quantity": 0
+  },
+  {
+    "id": 47,
+    "name": "10941-SALAMIN A/V PRECIO LIDER",
+    "quantity": 0
+  },
+  {
+    "id": 48,
+    "name": "10005-CHOR. COL. CANTIMPALO",
+    "quantity": 10
+  },
+  {
+    "id": 49,
+    "name": "10286-SALCH. PARR.C/QUESO A/V",
+    "quantity": 0
+  },
+  {
+    "id": 50,
+    "name": "10542-HAMB.PARRILLERA 1ESTX12U",
+    "quantity": 0
+  },
+  {
+    "id": 51,
+    "name": "10248-BUTIFARRA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 52,
+    "name": "10640-FRANK. CORTOS 2X8 UD. PROMO",
+    "quantity": 0
+  },
+  {
+    "id": 53,
+    "name": "10708-FRANK. LIGHT RED.EN SAL 2X8U PROMO",
+    "quantity": 0
+  },
+  {
+    "id": 54,
+    "name": "10238-MORC. SAL. C/Q Y A. A/V",
+    "quantity": 90
+  },
+  {
+    "id": 55,
+    "name": "10882-SALAMIN KOSHER A/V",
+    "quantity": 0
+  },
+  {
+    "id": 56,
+    "name": "10425-JAMON COCIDO PERITA",
+    "quantity": 0
+  },
+  {
+    "id": 57,
+    "name": "10721-CHACARERO A/V",
+    "quantity": 0
+  },
+  {
+    "id": 58,
+    "name": "10582-PASTRAMI",
+    "quantity": 0
+  },
+  {
+    "id": 59,
+    "name": "10860-PATE DE JAMON",
+    "quantity": 90
+  },
+  {
+    "id": 60,
+    "name": "10937-HAMB. EXTRA GRANDE 1ESTX6U",
+    "quantity": 0
+  },
+  {
+    "id": 61,
+    "name": "10574-HAMB.LIGHT S/SAL 1ESTX12U",
+    "quantity": 0
+  },
+  {
+    "id": 62,
+    "name": "10717-CHACARERO FINCETA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 63,
+    "name": "10886-PATE DE HIGADO AHUMADO CON TRUFAS",
+    "quantity": 0
+  },
+  {
+    "id": 64,
+    "name": "10720-SALAMIN A/V",
+    "quantity": 0
+  },
+  {
+    "id": 65,
+    "name": "10853-SALCHICHA PARRILLERA KOSHER A/V",
+    "quantity": 0
+  },
+  {
+    "id": 66,
+    "name": "10858-PATE DE HIGADO",
+    "quantity": 0
+  },
+  {
+    "id": 67,
+    "name": "10859-PATE DE LENGUA",
+    "quantity": 0
+  },
+  {
+    "id": 68,
+    "name": "102001-DESC. CONCEDIDOS T. BÁS.",
+    "quantity": 0
+  },
+  {
+    "id": 69,
+    "name": "10205-DESCUENTOS CONCEDIDOS",
+    "quantity": 0
+  },
+  {
+    "id": 70,
+    "name": "10636-SOPRESSATA A/V (PORCIONES)",
+    "quantity": 0
+  },
+  {
+    "id": 71,
+    "name": "10018-ESPINAZO",
+    "quantity": 0
+  },
+  {
+    "id": 72,
+    "name": "10885-PATE DE LENGUA AHUMADO",
+    "quantity": 0
+  },
+  {
+    "id": 73,
+    "name": "10022-ASADO",
+    "quantity": 999
+  },
+  {
+    "id": 74,
+    "name": "10755-LECHON ARROLLADO",
+    "quantity": 0
+  },
+  {
+    "id": 75,
+    "name": "10415-MATAMBRE DE CARNE RELL.",
+    "quantity": 999
+  },
+  {
+    "id": 76,
+    "name": "10183-CHOR.C/CHEDDAR Y MORRON",
+    "quantity": 0
+  },
+  {
+    "id": 77,
+    "name": "10719-SALAME FINCETA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 78,
+    "name": "10516-PANCETA AMERICANA",
+    "quantity": 0
+  },
+  {
+    "id": 79,
+    "name": "10101-COCHINILLO",
+    "quantity": 0
+  },
+  {
+    "id": 80,
+    "name": "10710-MORTADELIN + QUESITO PROMO",
+    "quantity": 0
+  },
+  {
+    "id": 81,
+    "name": "10231-PAMPLONA AGRIDULCE",
+    "quantity": 0
+  },
+  {
+    "id": 82,
+    "name": "10939-CHACARERO A/V PRECIO LIDER",
+    "quantity": 0
+  },
+  {
+    "id": 83,
+    "name": "10722-LONGANIZA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 84,
+    "name": "10048-1/2 S/CAB S/C",
+    "quantity": 0
+  },
+  {
+    "id": 85,
+    "name": "10795-BONDIOLA A/V + CHORIZO X3 DE REGALO",
+    "quantity": 0
+  },
+  {
+    "id": 86,
+    "name": "10837-JAMON GRAN RESERVA",
+    "quantity": 0
+  },
+  {
+    "id": 87,
+    "name": "10637-PANCETA AHUMADA TROZOS A/V",
+    "quantity": 0
+  },
+  {
+    "id": 88,
+    "name": "10328-LEONESA A/V 1/2",
+    "quantity": 0
+  },
+  {
+    "id": 89,
+    "name": "10718-LONGANIZA FINCETA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 90,
+    "name": "10170-CHOR.DE CORDERO A/V X3U",
+    "quantity": 0
+  },
+  {
+    "id": 91,
+    "name": "10014-PALETA CON HUESO",
+    "quantity": 0
+  },
+  {
+    "id": 92,
+    "name": "10074-MILANESAS A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 93,
+    "name": "10564-LONGANIZA FINCETA",
+    "quantity": 0
+  },
+  {
+    "id": 94,
+    "name": "10075-MEDALLONES A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 95,
+    "name": "10077-CHULETA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 96,
+    "name": "10076-PULPA P/MILAN. A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 97,
+    "name": "10343-QUESO DE CERDO MINI",
+    "quantity": 111111111
+  },
+  {
+    "id": 98,
+    "name": "10190-HIGADO A LA TELA",
+    "quantity": 0
+  },
+  {
+    "id": 99,
+    "name": "10068-COSTILLITA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 100,
+    "name": "10064-LOMITO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 101,
+    "name": "10954-RACK DE CERDO ENTERO",
+    "quantity": 0
+  },
+  {
+    "id": 102,
+    "name": "10641-JAMON CRUDO SPECK",
+    "quantity": 0
+  },
+  {
+    "id": 103,
+    "name": "10881-LENGUA COCIDA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 104,
+    "name": "10781-CHOR PARRILLERO ESPETO",
+    "quantity": 2
+  },
+  {
+    "id": 105,
+    "name": "10782-MORC DULCE ESPETO",
+    "quantity": 0
+  },
+  {
+    "id": 106,
+    "name": "10783-MORC SALADA ESPETO",
+    "quantity": 0
+  },
+  {
+    "id": 107,
+    "name": "10033-PATAS Y BRAZUELOS",
+    "quantity": 0
+  },
+  {
+    "id": 108,
+    "name": "10995-1/2 RES",
+    "quantity": 0
+  },
+  {
+    "id": 109,
+    "name": "10595-FRANK. LIGHT RED.EN SAL X8U",
+    "quantity": 0
+  },
+  {
+    "id": 110,
+    "name": "10459-DOLF.HAMB.CLAS.X3U (FP)",
+    "quantity": 0
+  },
+  {
+    "id": 111,
+    "name": "10047-1/2 S/CAB C/C",
+    "quantity": 0
+  },
+  {
+    "id": 112,
+    "name": "10987-CHINGOLO KOSHER",
+    "quantity": 0
+  }
+]
+
+
+### C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\data\stock_confirmed_2025-01-11-14-16-10.json
+
+[
+  {
+    "id": 22,
+    "name": "10003-CHOR. PARRILLERO",
+    "quantity": 0
+  },
+  {
+    "id": 48,
+    "name": "10005-CHOR. COL. CANTIMPALO",
+    "quantity": 10
+  },
+  {
+    "id": 23,
+    "name": "10007-JAMON AL ROJO",
+    "quantity": 0
+  },
+  {
+    "id": 91,
+    "name": "10014-PALETA CON HUESO",
+    "quantity": 0
+  },
+  {
+    "id": 71,
+    "name": "10018-ESPINAZO",
+    "quantity": 0
+  },
+  {
+    "id": 73,
+    "name": "10022-ASADO",
+    "quantity": 10
+  },
+  {
+    "id": 107,
+    "name": "10033-PATAS Y BRAZUELOS",
+    "quantity": 0
+  },
+  {
+    "id": 10,
+    "name": "10045-LECHON",
+    "quantity": 0
+  },
+  {
+    "id": 111,
+    "name": "10047-1/2 S/CAB C/C",
+    "quantity": 0
+  },
+  {
+    "id": 84,
+    "name": "10048-1/2 S/CAB S/C",
+    "quantity": 0
+  },
+  {
+    "id": 17,
+    "name": "10061-ASADO A/V CAMPOSUR",
+    "quantity": 90
+  },
+  {
+    "id": 30,
+    "name": "10062-PECHITO PARR. A/V CAMPOSUR",
+    "quantity": 60
+  },
+  {
+    "id": 34,
+    "name": "10063-BONDIOLA A/V CAMPOSUR",
+    "quantity": 9999
+  },
+  {
+    "id": 100,
+    "name": "10064-LOMITO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 24,
+    "name": "10065-MATAMBRITO A/V CAMPOSUR",
+    "quantity": 90
+  },
+  {
+    "id": 32,
+    "name": "10066-SECRETO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 99,
+    "name": "10068-COSTILLITA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 38,
+    "name": "10069-PICANA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 33,
+    "name": "10070-BOLA DE LOMO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 28,
+    "name": "10071-NALGA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 21,
+    "name": "10072-COL. DE CUAD. A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 29,
+    "name": "10073-PECETO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 92,
+    "name": "10074-MILANESAS A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 94,
+    "name": "10075-MEDALLONES A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 96,
+    "name": "10076-PULPA P/MILAN. A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 95,
+    "name": "10077-CHULETA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 79,
+    "name": "10101-COCHINILLO",
+    "quantity": 0
+  },
+  {
+    "id": 40,
+    "name": "10118-CHOR. EXTRA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 90,
+    "name": "10170-CHOR.DE CORDERO A/V X3U",
+    "quantity": 0
+  },
+  {
+    "id": 26,
+    "name": "10176-MORC. DULCE",
+    "quantity": 0
+  },
+  {
+    "id": 27,
+    "name": "10177-MORC. SALADA",
+    "quantity": 0
+  },
+  {
+    "id": 76,
+    "name": "10183-CHOR.C/CHEDDAR Y MORRON",
+    "quantity": 0
+  },
+  {
+    "id": 12,
+    "name": "10188-BONDIOLA RELLENA SALADA",
+    "quantity": 90
+  },
+  {
+    "id": 11,
+    "name": "10189-BONDIOLA RELLENA AGRID.",
+    "quantity": 0
+  },
+  {
+    "id": 98,
+    "name": "10190-HIGADO A LA TELA",
+    "quantity": 0
+  },
+  {
+    "id": 39,
+    "name": "10191-RINON A LA TELA",
+    "quantity": 0
+  },
+  {
+    "id": 68,
+    "name": "102001-DESC. CONCEDIDOS T. BÁS.",
+    "quantity": 0
+  },
+  {
+    "id": 69,
+    "name": "10205-DESCUENTOS CONCEDIDOS",
+    "quantity": 0
+  },
+  {
+    "id": 81,
+    "name": "10231-PAMPLONA AGRIDULCE",
+    "quantity": 0
+  },
+  {
+    "id": 14,
+    "name": "10232-PAMPLONA SALADA",
+    "quantity": 0
+  },
+  {
+    "id": 25,
+    "name": "10237-MORC. DUL. C/N Y M. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 54,
+    "name": "10238-MORC. SAL. C/Q Y A. A/V",
+    "quantity": 90
+  },
+  {
+    "id": 51,
+    "name": "10248-BUTIFARRA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 36,
+    "name": "10283-CHOR.C/QUESO Y ACEI. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 35,
+    "name": "10284-CHOR.C/CHEDDAR Y MORR. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 49,
+    "name": "10286-SALCH. PARR.C/QUESO A/V",
+    "quantity": 0
+  },
+  {
+    "id": 88,
+    "name": "10328-LEONESA A/V 1/2",
+    "quantity": 0
+  },
+  {
+    "id": 97,
+    "name": "10343-QUESO DE CERDO MINI",
+    "quantity": 0
+  },
+  {
+    "id": 75,
+    "name": "10415-MATAMBRE DE CARNE RELL.",
+    "quantity": 0
+  },
+  {
+    "id": 56,
+    "name": "10425-JAMON COCIDO PERITA",
+    "quantity": 0
+  },
+  {
+    "id": 45,
+    "name": "10432-KASSLER A/V",
+    "quantity": 90
+  },
+  {
+    "id": 110,
+    "name": "10459-DOLF.HAMB.CLAS.X3U (FP)",
+    "quantity": 0
+  },
+  {
+    "id": 19,
+    "name": "10466-BABY RIBS A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 18,
+    "name": "10467-ASADO DE CEN. A/V CAMPOSUR",
+    "quantity": 10
+  },
+  {
+    "id": 44,
+    "name": "10470-JAMON DE CAMPO",
+    "quantity": 9
+  },
+  {
+    "id": 20,
+    "name": "10513-BIFE DE VACIO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 78,
+    "name": "10516-PANCETA AMERICANA",
+    "quantity": 0
+  },
+  {
+    "id": 50,
+    "name": "10542-HAMB.PARRILLERA 1ESTX12U",
+    "quantity": 0
+  },
+  {
+    "id": 13,
+    "name": "10558-BROCHETTES DE CERDO",
+    "quantity": 0
+  },
+  {
+    "id": 37,
+    "name": "10563-CHORIZO KOSHER A/V X3U",
+    "quantity": 10
+  },
+  {
+    "id": 93,
+    "name": "10564-LONGANIZA FINCETA",
+    "quantity": 0
+  },
+  {
+    "id": 43,
+    "name": "10567-FRANK. KOSHER CORTOS X8U",
+    "quantity": 0
+  },
+  {
+    "id": 61,
+    "name": "10574-HAMB.LIGHT S/SAL 1ESTX12U",
+    "quantity": 0
+  },
+  {
+    "id": 16,
+    "name": "10575-HAMB.KOSHER 1ESTX12U",
+    "quantity": 0
+  },
+  {
+    "id": 58,
+    "name": "10582-PASTRAMI",
+    "quantity": 0
+  },
+  {
+    "id": 109,
+    "name": "10595-FRANK. LIGHT RED.EN SAL X8U",
+    "quantity": 0
+  },
+  {
+    "id": 70,
+    "name": "10636-SOPRESSATA A/V (PORCIONES)",
+    "quantity": 0
+  },
+  {
+    "id": 87,
+    "name": "10637-PANCETA AHUMADA TROZOS A/V",
+    "quantity": 0
+  },
+  {
+    "id": 52,
+    "name": "10640-FRANK. CORTOS 2X8 UD. PROMO",
+    "quantity": 0
+  },
+  {
+    "id": 102,
+    "name": "10641-JAMON CRUDO SPECK",
+    "quantity": 0
+  },
+  {
+    "id": 53,
+    "name": "10708-FRANK. LIGHT RED.EN SAL 2X8U PROMO",
+    "quantity": 0
+  },
+  {
+    "id": 80,
+    "name": "10710-MORTADELIN + QUESITO PROMO",
+    "quantity": 0
+  },
+  {
+    "id": 62,
+    "name": "10717-CHACARERO FINCETA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 89,
+    "name": "10718-LONGANIZA FINCETA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 77,
+    "name": "10719-SALAME FINCETA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 64,
+    "name": "10720-SALAMIN A/V",
+    "quantity": 0
+  },
+  {
+    "id": 57,
+    "name": "10721-CHACARERO A/V",
+    "quantity": 0
+  },
+  {
+    "id": 83,
+    "name": "10722-LONGANIZA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 74,
+    "name": "10755-LECHON ARROLLADO",
+    "quantity": 0
+  },
+  {
+    "id": 104,
+    "name": "10781-CHOR PARRILLERO ESPETO",
+    "quantity": 2
+  },
+  {
+    "id": 105,
+    "name": "10782-MORC DULCE ESPETO",
+    "quantity": 0
+  },
+  {
+    "id": 106,
+    "name": "10783-MORC SALADA ESPETO",
+    "quantity": 0
+  },
+  {
+    "id": 15,
+    "name": "10791-HAMB. EXTRA 1EST X 20+4U",
+    "quantity": 0
+  },
+  {
+    "id": 85,
+    "name": "10795-BONDIOLA A/V + CHORIZO X3 DE REGALO",
+    "quantity": 0
+  },
+  {
+    "id": 86,
+    "name": "10837-JAMON GRAN RESERVA",
+    "quantity": 0
+  },
+  {
+    "id": 42,
+    "name": "10842-DOLF. FRANK. CORTOS X8",
+    "quantity": 0
+  },
+  {
+    "id": 65,
+    "name": "10853-SALCHICHA PARRILLERA KOSHER A/V",
+    "quantity": 0
+  },
+  {
+    "id": 66,
+    "name": "10858-PATE DE HIGADO",
+    "quantity": 0
+  },
+  {
+    "id": 67,
+    "name": "10859-PATE DE LENGUA",
+    "quantity": 0
+  },
+  {
+    "id": 59,
+    "name": "10860-PATE DE JAMON",
+    "quantity": 90
+  },
+  {
+    "id": 103,
+    "name": "10881-LENGUA COCIDA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 55,
+    "name": "10882-SALAMIN KOSHER A/V",
+    "quantity": 0
+  },
+  {
+    "id": 72,
+    "name": "10885-PATE DE LENGUA AHUMADO",
+    "quantity": 0
+  },
+  {
+    "id": 63,
+    "name": "10886-PATE DE HIGADO AHUMADO CON TRUFAS",
+    "quantity": 0
+  },
+  {
+    "id": 60,
+    "name": "10937-HAMB. EXTRA GRANDE 1ESTX6U",
+    "quantity": 0
+  },
+  {
+    "id": 82,
+    "name": "10939-CHACARERO A/V PRECIO LIDER",
+    "quantity": 0
+  },
+  {
+    "id": 46,
+    "name": "10940-LONGANIZA A/V PRECIO LIDER",
+    "quantity": 0
+  },
+  {
+    "id": 47,
+    "name": "10941-SALAMIN A/V PRECIO LIDER",
+    "quantity": 0
+  },
+  {
+    "id": 31,
+    "name": "10953-RACK DE CERDO A/V",
+    "quantity": 0
+  },
+  {
+    "id": 101,
+    "name": "10954-RACK DE CERDO ENTERO",
+    "quantity": 0
+  },
+  {
+    "id": 2,
+    "name": "10981-ASADO KOSHER",
+    "quantity": 10
+  },
+  {
+    "id": 3,
+    "name": "10982-BIFE ANCHO KOSHER",
+    "quantity": 4
+  },
+  {
+    "id": 1,
+    "name": "10983-AGUJA KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 8,
+    "name": "10984-PALETA KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 9,
+    "name": "10985-PECHO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 6,
+    "name": "10986-MARUCHA KOSHER",
+    "quantity": 90
+  },
+  {
+    "id": 112,
+    "name": "10987-CHINGOLO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 4,
+    "name": "10988-BRAZUELO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 7,
+    "name": "10990-MATAMBRE KOSHER",
+    "quantity": 90
+  },
+  {
+    "id": 108,
+    "name": "10995-1/2 RES",
+    "quantity": 0
+  },
+  {
+    "id": 41,
+    "name": "10996-TRASERO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 5,
+    "name": "156-FIS T.M.",
+    "quantity": 0
+  }
+]
+
+
+### C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\data\stock_confirmed_2025-01-11-14-16-35.json
+
+[
+  {
+    "id": 22,
+    "name": "10003-CHOR. PARRILLERO",
+    "quantity": 0
+  },
+  {
+    "id": 48,
+    "name": "10005-CHOR. COL. CANTIMPALO",
+    "quantity": 0
+  },
+  {
+    "id": 23,
+    "name": "10007-JAMON AL ROJO",
+    "quantity": 0
+  },
+  {
+    "id": 91,
+    "name": "10014-PALETA CON HUESO",
+    "quantity": 0
+  },
+  {
+    "id": 71,
+    "name": "10018-ESPINAZO",
+    "quantity": 0
+  },
+  {
+    "id": 73,
+    "name": "10022-ASADO",
+    "quantity": 9
+  },
+  {
+    "id": 107,
+    "name": "10033-PATAS Y BRAZUELOS",
+    "quantity": 0
+  },
+  {
+    "id": 10,
+    "name": "10045-LECHON",
+    "quantity": 0
+  },
+  {
+    "id": 111,
+    "name": "10047-1/2 S/CAB C/C",
+    "quantity": 0
+  },
+  {
+    "id": 84,
+    "name": "10048-1/2 S/CAB S/C",
+    "quantity": 0
+  },
+  {
+    "id": 17,
+    "name": "10061-ASADO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 30,
+    "name": "10062-PECHITO PARR. A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 34,
+    "name": "10063-BONDIOLA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 100,
+    "name": "10064-LOMITO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 24,
+    "name": "10065-MATAMBRITO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 32,
+    "name": "10066-SECRETO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 99,
+    "name": "10068-COSTILLITA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 38,
+    "name": "10069-PICANA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 33,
+    "name": "10070-BOLA DE LOMO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 28,
+    "name": "10071-NALGA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 21,
+    "name": "10072-COL. DE CUAD. A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 29,
+    "name": "10073-PECETO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 92,
+    "name": "10074-MILANESAS A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 94,
+    "name": "10075-MEDALLONES A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 96,
+    "name": "10076-PULPA P/MILAN. A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 95,
+    "name": "10077-CHULETA A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 79,
+    "name": "10101-COCHINILLO",
+    "quantity": 0
+  },
+  {
+    "id": 40,
+    "name": "10118-CHOR. EXTRA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 90,
+    "name": "10170-CHOR.DE CORDERO A/V X3U",
+    "quantity": 0
+  },
+  {
+    "id": 26,
+    "name": "10176-MORC. DULCE",
+    "quantity": 0
+  },
+  {
+    "id": 27,
+    "name": "10177-MORC. SALADA",
+    "quantity": 0
+  },
+  {
+    "id": 76,
+    "name": "10183-CHOR.C/CHEDDAR Y MORRON",
+    "quantity": 0
+  },
+  {
+    "id": 12,
+    "name": "10188-BONDIOLA RELLENA SALADA",
+    "quantity": 0
+  },
+  {
+    "id": 11,
+    "name": "10189-BONDIOLA RELLENA AGRID.",
+    "quantity": 0
+  },
+  {
+    "id": 98,
+    "name": "10190-HIGADO A LA TELA",
+    "quantity": 0
+  },
+  {
+    "id": 39,
+    "name": "10191-RINON A LA TELA",
+    "quantity": 0
+  },
+  {
+    "id": 68,
+    "name": "102001-DESC. CONCEDIDOS T. BÁS.",
+    "quantity": 0
+  },
+  {
+    "id": 69,
+    "name": "10205-DESCUENTOS CONCEDIDOS",
+    "quantity": 0
+  },
+  {
+    "id": 81,
+    "name": "10231-PAMPLONA AGRIDULCE",
+    "quantity": 0
+  },
+  {
+    "id": 14,
+    "name": "10232-PAMPLONA SALADA",
+    "quantity": 0
+  },
+  {
+    "id": 25,
+    "name": "10237-MORC. DUL. C/N Y M. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 54,
+    "name": "10238-MORC. SAL. C/Q Y A. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 51,
+    "name": "10248-BUTIFARRA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 36,
+    "name": "10283-CHOR.C/QUESO Y ACEI. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 35,
+    "name": "10284-CHOR.C/CHEDDAR Y MORR. A/V",
+    "quantity": 0
+  },
+  {
+    "id": 49,
+    "name": "10286-SALCH. PARR.C/QUESO A/V",
+    "quantity": 0
+  },
+  {
+    "id": 88,
+    "name": "10328-LEONESA A/V 1/2",
+    "quantity": 0
+  },
+  {
+    "id": 97,
+    "name": "10343-QUESO DE CERDO MINI",
+    "quantity": 0
+  },
+  {
+    "id": 75,
+    "name": "10415-MATAMBRE DE CARNE RELL.",
+    "quantity": 0
+  },
+  {
+    "id": 56,
+    "name": "10425-JAMON COCIDO PERITA",
+    "quantity": 0
+  },
+  {
+    "id": 45,
+    "name": "10432-KASSLER A/V",
+    "quantity": 0
+  },
+  {
+    "id": 110,
+    "name": "10459-DOLF.HAMB.CLAS.X3U (FP)",
+    "quantity": 0
+  },
+  {
+    "id": 19,
+    "name": "10466-BABY RIBS A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 18,
+    "name": "10467-ASADO DE CEN. A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 44,
+    "name": "10470-JAMON DE CAMPO",
+    "quantity": 0
+  },
+  {
+    "id": 20,
+    "name": "10513-BIFE DE VACIO A/V CAMPOSUR",
+    "quantity": 0
+  },
+  {
+    "id": 78,
+    "name": "10516-PANCETA AMERICANA",
+    "quantity": 0
+  },
+  {
+    "id": 50,
+    "name": "10542-HAMB.PARRILLERA 1ESTX12U",
+    "quantity": 0
+  },
+  {
+    "id": 13,
+    "name": "10558-BROCHETTES DE CERDO",
+    "quantity": 0
+  },
+  {
+    "id": 37,
+    "name": "10563-CHORIZO KOSHER A/V X3U",
+    "quantity": 0
+  },
+  {
+    "id": 93,
+    "name": "10564-LONGANIZA FINCETA",
+    "quantity": 0
+  },
+  {
+    "id": 43,
+    "name": "10567-FRANK. KOSHER CORTOS X8U",
+    "quantity": 0
+  },
+  {
+    "id": 61,
+    "name": "10574-HAMB.LIGHT S/SAL 1ESTX12U",
+    "quantity": 0
+  },
+  {
+    "id": 16,
+    "name": "10575-HAMB.KOSHER 1ESTX12U",
+    "quantity": 0
+  },
+  {
+    "id": 58,
+    "name": "10582-PASTRAMI",
+    "quantity": 0
+  },
+  {
+    "id": 109,
+    "name": "10595-FRANK. LIGHT RED.EN SAL X8U",
+    "quantity": 0
+  },
+  {
+    "id": 70,
+    "name": "10636-SOPRESSATA A/V (PORCIONES)",
+    "quantity": 0
+  },
+  {
+    "id": 87,
+    "name": "10637-PANCETA AHUMADA TROZOS A/V",
+    "quantity": 0
+  },
+  {
+    "id": 52,
+    "name": "10640-FRANK. CORTOS 2X8 UD. PROMO",
+    "quantity": 0
+  },
+  {
+    "id": 102,
+    "name": "10641-JAMON CRUDO SPECK",
+    "quantity": 0
+  },
+  {
+    "id": 53,
+    "name": "10708-FRANK. LIGHT RED.EN SAL 2X8U PROMO",
+    "quantity": 0
+  },
+  {
+    "id": 80,
+    "name": "10710-MORTADELIN + QUESITO PROMO",
+    "quantity": 0
+  },
+  {
+    "id": 62,
+    "name": "10717-CHACARERO FINCETA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 89,
+    "name": "10718-LONGANIZA FINCETA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 77,
+    "name": "10719-SALAME FINCETA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 64,
+    "name": "10720-SALAMIN A/V",
+    "quantity": 0
+  },
+  {
+    "id": 57,
+    "name": "10721-CHACARERO A/V",
+    "quantity": 0
+  },
+  {
+    "id": 83,
+    "name": "10722-LONGANIZA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 74,
+    "name": "10755-LECHON ARROLLADO",
+    "quantity": 0
+  },
+  {
+    "id": 104,
+    "name": "10781-CHOR PARRILLERO ESPETO",
+    "quantity": 0
+  },
+  {
+    "id": 105,
+    "name": "10782-MORC DULCE ESPETO",
+    "quantity": 0
+  },
+  {
+    "id": 106,
+    "name": "10783-MORC SALADA ESPETO",
+    "quantity": 0
+  },
+  {
+    "id": 15,
+    "name": "10791-HAMB. EXTRA 1EST X 20+4U",
+    "quantity": 0
+  },
+  {
+    "id": 85,
+    "name": "10795-BONDIOLA A/V + CHORIZO X3 DE REGALO",
+    "quantity": 0
+  },
+  {
+    "id": 86,
+    "name": "10837-JAMON GRAN RESERVA",
+    "quantity": 0
+  },
+  {
+    "id": 42,
+    "name": "10842-DOLF. FRANK. CORTOS X8",
+    "quantity": 0
+  },
+  {
+    "id": 65,
+    "name": "10853-SALCHICHA PARRILLERA KOSHER A/V",
+    "quantity": 0
+  },
+  {
+    "id": 66,
+    "name": "10858-PATE DE HIGADO",
+    "quantity": 0
+  },
+  {
+    "id": 67,
+    "name": "10859-PATE DE LENGUA",
+    "quantity": 0
+  },
+  {
+    "id": 59,
+    "name": "10860-PATE DE JAMON",
+    "quantity": 0
+  },
+  {
+    "id": 103,
+    "name": "10881-LENGUA COCIDA A/V",
+    "quantity": 0
+  },
+  {
+    "id": 55,
+    "name": "10882-SALAMIN KOSHER A/V",
+    "quantity": 0
+  },
+  {
+    "id": 72,
+    "name": "10885-PATE DE LENGUA AHUMADO",
+    "quantity": 0
+  },
+  {
+    "id": 63,
+    "name": "10886-PATE DE HIGADO AHUMADO CON TRUFAS",
+    "quantity": 0
+  },
+  {
+    "id": 60,
+    "name": "10937-HAMB. EXTRA GRANDE 1ESTX6U",
+    "quantity": 0
+  },
+  {
+    "id": 82,
+    "name": "10939-CHACARERO A/V PRECIO LIDER",
+    "quantity": 0
+  },
+  {
+    "id": 46,
+    "name": "10940-LONGANIZA A/V PRECIO LIDER",
+    "quantity": 0
+  },
+  {
+    "id": 47,
+    "name": "10941-SALAMIN A/V PRECIO LIDER",
+    "quantity": 0
+  },
+  {
+    "id": 31,
+    "name": "10953-RACK DE CERDO A/V",
+    "quantity": 0
+  },
+  {
+    "id": 101,
+    "name": "10954-RACK DE CERDO ENTERO",
+    "quantity": 0
+  },
+  {
+    "id": 2,
+    "name": "10981-ASADO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 3,
+    "name": "10982-BIFE ANCHO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 1,
+    "name": "10983-AGUJA KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 8,
+    "name": "10984-PALETA KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 9,
+    "name": "10985-PECHO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 6,
+    "name": "10986-MARUCHA KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 112,
+    "name": "10987-CHINGOLO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 4,
+    "name": "10988-BRAZUELO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 7,
+    "name": "10990-MATAMBRE KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 108,
+    "name": "10995-1/2 RES",
+    "quantity": 0
+  },
+  {
+    "id": 41,
+    "name": "10996-TRASERO KOSHER",
+    "quantity": 0
+  },
+  {
+    "id": 5,
+    "name": "156-FIS T.M.",
+    "quantity": 0
+  }
+]
+
+
+### C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\routes\stock.js
+
+const express = require("express");
+const router = express.Router();
+const fs = require("fs");
+const path = require("path");
+const { getArticles, updateArticle, finalizeStock, generateExcel } = require("../services/stockService");
+
+// Ruta para obtener todos los artículos
+router.get("/articles", async (req, res) => {
+    try {
+        const articles = await getArticles();
+        res.json(articles);
+    } catch (error) {
+        console.error("Error fetching articles:", error);
+        res.status(500).json({ error: "Error al obtener los artículos" });
+    }
+});
+
+// Ruta para actualizar la cantidad de un artículo
+router.post("/articles/update", async (req, res) => {
+    const { id, quantity } = req.body;
+    if (!id || quantity === undefined) {
+        return res.status(400).json({ error: "ID y cantidad son requeridos" });
+    }
+
+    try {
+        await updateArticle(id, quantity);
+        res.json({ message: "Cantidad actualizada con éxito" });
+    } catch (error) {
+        console.error("Error updating article:", error);
+        res.status(500).json({ error: "Error al actualizar el artículo" });
+    }
+});
+
+// Ruta para finalizar ingreso
+router.post("/finalize-stock", async (req, res) => {
+    const articles = req.body;
+
+    if (!Array.isArray(articles) || articles.length === 0) {
+        return res.status(400).json({ error: "Datos de artículos inválidos" });
+    }
+
+    try {
+        const message = await finalizeStock(articles);
+        res.json({ message });
+    } catch (error) {
+        console.error("Error finalizing stock:", error);
+        res.status(500).json({ error: "Error al finalizar el ingreso" });
+    }
+});
+
+// Ruta para confirmar stock y generar un archivo JSON
+router.post("/confirm-stock", async (req, res) => {
+    const articles = req.body;
+
+    if (!Array.isArray(articles) || articles.length === 0) {
+        return res.status(400).json({ error: "Datos de artículos inválidos" });
+    }
+
+    try {
+        const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+        const filePath = path.join(__dirname, `../data/stock-${timestamp}.json`);
+        fs.writeFileSync(filePath, JSON.stringify(articles, null, 2));
+        res.json({ message: "Stock confirmado y JSON generado", filePath });
+    } catch (error) {
+        console.error("Error confirming stock:", error);
+        res.status(500).json({ error: "Error al confirmar el stock" });
+    }
+});
+
+// Ruta para descargar el archivo Excel
+router.get("/download-excel", async (req, res) => {
+    try {
+        const excelFile = await generateExcel();
+        res.setHeader("Content-Disposition", `attachment; filename=stock.xlsx`);
+        res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        res.send(excelFile);
+    } catch (error) {
+        console.error("Error downloading Excel file:", error);
+        res.status(500).json({ error: "Error al descargar el archivo Excel" });
+    }
+});
+
+module.exports = router;
+
+
+
+### C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\routes\stockRoutes.js
+
+const express = require("express");
+const router = express.Router();
+const fs = require("fs");
+const path = require("path");
+
+// Ruta para obtener los artículos desde el archivo JSON
+router.get("/articles", (req, res) => {
+    try {
+        const filePath = path.join(__dirname, "../data/articles.json");
+
+        // Verifica si el archivo existe
+        if (!fs.existsSync(filePath)) {
+            return res.status(404).json({ message: "El archivo de artículos no existe." });
+        }
+
+        // Lee y devuelve los datos del archivo JSON
+        const data = fs.readFileSync(filePath, "utf-8");
+        const articles = JSON.parse(data);
+        res.json(articles);
+    } catch (error) {
+        console.error("Error al obtener los artículos:", error.message);
+        res.status(500).json({ message: "Error al obtener los artículos." });
+    }
+});
+
+// Ruta para actualizar la cantidad de un artículo
+router.post("/articles/update", (req, res) => {
+    const { id, quantity } = req.body;
+
+    if (typeof id !== "number" || typeof quantity !== "number") {
+        return res.status(400).json({ error: "Datos inválidos." });
+    }
+
+    try {
+        const filePath = path.join(__dirname, "../data/articles.json");
+        const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+
+        const articleIndex = data.findIndex((article) => article.id === id);
+        if (articleIndex === -1) {
+            return res.status(404).json({ error: "Artículo no encontrado." });
+        }
+
+        data[articleIndex].quantity = quantity;
+
+        fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+        res.json({ message: "Cantidad actualizada correctamente." });
+    } catch (error) {
+        console.error("Error al actualizar el archivo JSON:", error.message);
+        res.status(500).json({ error: "Error al actualizar el artículo." });
+    }
+});
+
+// Ruta para finalizar el ingreso de stock
+router.post("/finalize-stock", (req, res) => {
+    try {
+        const stockData = req.body;
+
+        if (!Array.isArray(stockData) || stockData.length === 0) {
+            return res.status(400).json({ message: "Los datos de stock enviados son inválidos." });
+        }
+
+        const now = new Date();
+        const timestamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}-${String(now.getHours()).padStart(2, "0")}-${String(now.getMinutes()).padStart(2, "0")}-${String(now.getSeconds()).padStart(2, "0")}`;
+        const fileName = `stock_${timestamp}.json`;
+        const filePath = path.join(__dirname, "../data", fileName);
+
+        fs.writeFileSync(filePath, JSON.stringify(stockData, null, 2));
+        res.status(200).json({ message: "Stock finalizado con éxito.", fileName });
+    } catch (error) {
+        console.error("Error al procesar /finalize-stock:", error.message);
+        res.status(500).json({ message: "Error al finalizar el stock." });
+    }
+});
+
+// Ruta para confirmar el stock
+router.post("/confirm-stock", (req, res) => {
+    try {
+        const stockData = req.body;
+
+        if (!Array.isArray(stockData) || stockData.length === 0) {
+            return res.status(400).json({ message: "Los datos de stock enviados son inválidos." });
+        }
+
+        const now = new Date();
+        const timestamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}-${String(now.getHours()).padStart(2, "0")}-${String(now.getMinutes()).padStart(2, "0")}-${String(now.getSeconds()).padStart(2, "0")}`;
+        const fileName = `stock_confirmed_${timestamp}.json`;
+        const filePath = path.join(__dirname, "../data", fileName);
+
+        fs.writeFileSync(filePath, JSON.stringify(stockData, null, 2));
+        res.status(200).json({ message: "Stock confirmado con éxito.", fileName });
+    } catch (error) {
+        console.error("Error al procesar /confirm-stock:", error.message);
+        res.status(500).json({ message: "Error al confirmar el stock." });
+    }
+});
+
+module.exports = router;
+
+
+
+### C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\services\stockService.js
+
+const fs = require("fs");
+const path = require("path");
+
+// Ruta del directorio donde se almacenan los archivos JSON
+const dataPath = path.join(__dirname, "../data");
+
+// Confirmar y guardar el stock
+const confirmStock = async (articles) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const now = new Date();
+            const timestamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}-${String(now.getHours()).padStart(2, "0")}-${String(now.getMinutes()).padStart(2, "0")}-${String(now.getSeconds()).padStart(2, "0")}`;
+            const fileName = `stock_confirmed_${timestamp}.json`;
+            const filePath = path.join(dataPath, fileName);
+
+            // Crear el directorio si no existe
+            if (!fs.existsSync(dataPath)) {
+                fs.mkdirSync(dataPath);
+            }
+
+            // Guardar el archivo JSON con los datos confirmados
+            fs.writeFileSync(filePath, JSON.stringify(articles, null, 2));
+            resolve({ message: "Stock confirmado y guardado exitosamente.", fileName });
+        } catch (error) {
+            console.error("Error al confirmar el stock:", error.message);
+            reject("No se pudo confirmar el stock.");
+        }
+    });
+};
+
+// Finalizar ingreso de stock (guardar temporalmente el stock actual)
+const finalizeStock = async (articles) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const now = new Date();
+            const timestamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}-${String(now.getHours()).padStart(2, "0")}-${String(now.getMinutes()).padStart(2, "0")}-${String(now.getSeconds()).padStart(2, "0")}`;
+            const fileName = `stock_${timestamp}.json`;
+            const filePath = path.join(dataPath, fileName);
+
+            // Crear el directorio si no existe
+            if (!fs.existsSync(dataPath)) {
+                fs.mkdirSync(dataPath);
+            }
+
+            // Guardar el archivo JSON con los datos del stock
+            fs.writeFileSync(filePath, JSON.stringify(articles, null, 2));
+            resolve({ message: "Stock finalizado y guardado exitosamente.", fileName });
+        } catch (error) {
+            console.error("Error al finalizar el stock:", error.message);
+            reject("No se pudo finalizar el stock.");
+        }
+    });
+};
+
+// Obtener todos los artículos desde el archivo JSON
+const getArticles = () => {
+    return new Promise((resolve, reject) => {
+        try {
+            const filePath = path.join(dataPath, "articles.json");
+
+            // Verifica si el archivo existe
+            if (!fs.existsSync(filePath)) {
+                return reject("El archivo de artículos no existe.");
+            }
+
+            // Lee y devuelve los datos del archivo JSON
+            const data = fs.readFileSync(filePath, "utf-8");
+            resolve(JSON.parse(data));
+        } catch (error) {
+            console.error("Error al obtener los artículos:", error.message);
+            reject("Error al obtener los artículos.");
+        }
+    });
+};
+
+// Actualizar la cantidad de un artículo en el archivo JSON
+const updateArticle = (id, quantity) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const filePath = path.join(dataPath, "articles.json");
+            const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+
+            const articleIndex = data.findIndex((article) => article.id === id);
+            if (articleIndex === -1) {
+                return reject("Artículo no encontrado.");
+            }
+
+            data[articleIndex].quantity = quantity;
+
+            fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+            resolve({ message: "Cantidad actualizada correctamente." });
+        } catch (error) {
+            console.error("Error al actualizar el archivo JSON:", error.message);
+            reject("Error al actualizar el artículo.");
+        }
+    });
+};
+
+module.exports = {
+    confirmStock,
+    finalizeStock,
+    getArticles,
+    updateArticle,
+};
+
+
+

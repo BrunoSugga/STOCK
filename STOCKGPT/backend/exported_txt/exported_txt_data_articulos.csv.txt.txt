@@ -1,10 +1,14 @@
+// Ubicación original: C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\exported_txt\data_articulos.csv.txt
+
+// Ubicación original: C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\data\articulos.csv
+
 "id","name","quantity"
 22,"10003-CHOR. PARRILLERO",0
 48,"10005-CHOR. COL. CANTIMPALO",10
 23,"10007-JAMON AL ROJO",0
 91,"10014-PALETA CON HUESO",0
 71,"10018-ESPINAZO",0
-73,"10022-ASADO",0
+73,"10022-ASADO",98765
 107,"10033-PATAS Y BRAZUELOS",0
 10,"10045-LECHON",0
 111,"10047-1/2 S/CAB C/C",0

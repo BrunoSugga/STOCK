@@ -1,0 +1,24 @@
+// Ubicación original: C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\exported_txt\debugMiddleware.txt
+
+// Ubicación original: C:\Users\bruno\Desktop\STOCK\STOCKGPT\backend\debugMiddleware
+
+const debug = require("debug")("app:debug");
+
+// Middleware para registrar solicitudes
+const requestLogger = (req, res, next) => {
+    debug(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    debug("Headers:", req.headers);
+    debug("Body:", req.body);
+    next();
+};
+
+// Middleware global para manejar errores
+const errorHandler = (err, req, res, next) => {
+    console.error("Error detectado:", err.stack);
+    res.status(500).send("Se produjo un error inesperado.");
+};
+
+module.exports = {
+    requestLogger,
+    errorHandler,
+};
